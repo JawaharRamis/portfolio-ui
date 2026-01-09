@@ -1,11 +1,13 @@
 <template>
   <div class="min-h-screen bg-white">
     <NavigationBar />
-    <HeroSection />
-    <AboutSection />
-    <ProjectsGallery />
-    <ArtGallery />
-    <FooterSection />
+    <main>
+      <HeroSection id="hero" />
+      <AboutSection id="about" />
+      <ProjectsGallery id="projects" />
+      <ArtGallery id="artwork" />
+    </main>
+    <FooterSection id="footer" />
   </div>
 </template>
 

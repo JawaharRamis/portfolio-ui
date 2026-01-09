@@ -1,15 +1,15 @@
 <template>
-  <section id="about" class="py-24 bg-white">
+  <section id="about" class="py-24 bg-white section-reveal">
     <div class="max-w-7xl mx-auto px-6">
       <!-- Section Header -->
-      <div class="mb-16">
+      <div class="mb-16 reveal">
         <h2 class="text-3xl md:text-4xl font-serif text-gray-900 mb-4">About</h2>
         <div class="w-16 h-px bg-gray-900"></div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-12">
         <!-- Bio -->
-        <div class="md:col-span-2">
+        <div class="md:col-span-2 reveal">
           <p class="text-lg font-sans text-gray-600 leading-relaxed mb-8">
             {{ profile?.bio || 'Add your bio to profile.json' }}
           </p>
@@ -29,7 +29,7 @@
         </div>
 
         <!-- Skills & Info -->
-        <div class="space-y-12">
+        <div class="space-y-12 reveal">
           <!-- Skills -->
           <div v-if="profile?.resume?.skills?.length">
             <h3 class="text-lg font-serif text-gray-900 mb-4">Skills</h3>
@@ -63,13 +63,13 @@
       <!-- Experience & Education -->
       <div class="grid md:grid-cols-2 gap-12 mt-16">
         <!-- Experience -->
-        <div v-if="profile?.resume?.experience?.length">
+        <div v-if="profile?.resume?.experience?.length" class="reveal">
           <h3 class="text-xl font-serif text-gray-900 mb-6">Experience</h3>
           <div class="space-y-8">
             <div
               v-for="(job, index) in profile.resume.experience"
               :key="index"
-              class="border-l-2 border-gray-200 pl-6"
+              class="border-l-2 border-gray-200 pl-6 transition-colors hover:border-gray-400"
             >
               <p class="text-lg font-sans font-medium text-gray-900">{{ job.role }}</p>
               <p class="text-sm font-sans text-gray-600">{{ job.company }}</p>
@@ -79,13 +79,13 @@
         </div>
 
         <!-- Education -->
-        <div v-if="profile?.resume?.education?.length">
+        <div v-if="profile?.resume?.education?.length" class="reveal">
           <h3 class="text-xl font-serif text-gray-900 mb-6">Education</h3>
           <div class="space-y-8">
             <div
               v-for="(edu, index) in profile.resume.education"
               :key="index"
-              class="border-l-2 border-gray-200 pl-6"
+              class="border-l-2 border-gray-200 pl-6 transition-colors hover:border-gray-400"
             >
               <p class="text-lg font-sans font-medium text-gray-900">{{ edu.degree }}</p>
               <p class="text-sm font-sans text-gray-600">{{ edu.institution }}</p>
@@ -99,8 +99,46 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import profileData from '@/data/profile.json'
 
 const profile = computed(() => profileData)
+
+const handleScroll = () => {
+  const reveals = document.querySelectorAll('.reveal')
+  reveals.forEach((el) => {
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight * 0.85) {
+      el.classList.add('active')
+    }
+  })
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
+
+<style scoped>
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal:nth-child(1) { transition-delay: 0s; }
+.reveal:nth-child(2) { transition-delay: 0.1s; }
+.reveal:nth-child(3) { transition-delay: 0.2s; }
+.reveal:nth-child(4) { transition-delay: 0.3s; }
+</style>

@@ -9,13 +9,13 @@
         </div>
 
         <!-- Social Links -->
-        <div class="flex items-center gap-6">
+        <div class="flex items-center gap-4">
           <a
             v-if="profile?.contact?.social?.linkedin"
             :href="profile.contact.social.linkedin"
             target="_blank"
             rel="noopener"
-            class="text-gray-400 hover:text-white transition-colors"
+            class="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300"
             aria-label="LinkedIn"
           >
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -27,7 +27,7 @@
             :href="profile.contact.social.instagram"
             target="_blank"
             rel="noopener"
-            class="text-gray-400 hover:text-white transition-colors"
+            class="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300"
             aria-label="Instagram"
           >
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
