@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Urban Fragmentation",
+    "medium": "Oil on Canvas",
+    "year": "2024",
+    "image": "/images/artwork/urban-fragmentation.jpg",
+    "description": "An exploration of how modern cities break apart under the pressure of development and change."
+  },
+  {
+    "id": 2,
+    "title": "Silence in Blue",
+    "medium": "Acrylic on Panel",
+    "year": "2023",
+    "image": "/images/artwork/silence-in-blue.jpg",
+    "description": "A meditation on solitude and the calming effect of monochromatic spaces."
+  },
+  {
+    "id": 3,
+    "title": "Structural Harmony",
+    "medium": "Mixed Media",
+    "year": "2023",
+    "image": "/images/artwork/structural-harmony.jpg",
+    "description": "Celebrating the beauty of architectural forms through abstract geometric composition."
+  },
+  {
+    "id": 4,
+    "title": "Memory of Place",
+    "medium": "Watercolor on Paper",
+    "year": "2022",
+    "image": "/images/artwork/memory-of-place.jpg",
+    "description": "Capturing the emotional resonance of spaces we once inhabited."
+  },
+  {
+    "id": 5,
+    "title": "Transition",
+    "medium": "Oil on Canvas",
+    "year": "2024",
+    "image": "/images/artwork/transition.jpg",
+    "description": "The moment between states, where architecture meets atmosphere."
+  }
+]

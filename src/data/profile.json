@@ -1,0 +1,49 @@
+{
+  "name": "Your Name",
+  "title": "Architecture & Design",
+  "bio": "Passionate architect with a focus on sustainable design and innovative spatial experiences. Combining functionality with aesthetic beauty to create spaces that inspire and endure.",
+  "heroImage": "/images/profile/hero.jpg",
+  "resume": {
+    "education": [
+      {
+        "degree": "Master of Architecture",
+        "institution": "University of Design",
+        "year": "2020"
+      },
+      {
+        "degree": "Bachelor of Architecture",
+        "institution": "Institute of Fine Arts",
+        "year": "2018"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Senior Architect",
+        "company": "Studio Modern",
+        "year": "2022 - Present"
+      },
+      {
+        "role": "Architect",
+        "company": "Urban Design Group",
+        "year": "2020 - 2022"
+      }
+    ],
+    "skills": [
+      "Architectural Design",
+      "3D Modeling",
+      "Sustainable Design",
+      "Project Management",
+      "CAD Software",
+      "Adobe Creative Suite"
+    ]
+  },
+  "contact": {
+    "email": "hello@yourname.com",
+    "phone": "+1 (555) 123-4567",
+    "location": "New York, USA",
+    "social": {
+      "linkedin": "https://linkedin.com/in/yourname",
+      "instagram": "https://instagram.com/yourname"
+    }
+  }
+}

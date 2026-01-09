@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Modernist Residence",
+    "category": "Residential",
+    "year": "2024",
+    "shortDescription": "A minimalist family home embracing natural light and open spaces.",
+    "description": "This residential project explores the relationship between indoor and outdoor living. Floor-to-ceiling windows blur the boundaries between the interior and the surrounding landscape. The design prioritizes natural materials and sustainable construction methods.",
+    "location": "Malibu, California",
+    "coverImage": "/images/projects/modernist-residence/cover.jpg",
+    "images": [
+      "/images/projects/modernist-residence/exterior-1.jpg",
+      "/images/projects/modernist-residence/interior-1.jpg",
+      "/images/projects/modernist-residence/detail-1.jpg"
+    ],
+    "details": {
+      "area": "3,200 sq ft",
+      "client": "Private Client",
+      "collaborators": "Landscape Studio"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Urban Cultural Center",
+    "category": "Cultural",
+    "year": "2023",
+    "shortDescription": "A community hub featuring exhibition spaces and a performance theater.",
+    "description": "The Urban Cultural Center serves as a gathering place for arts and culture. The building's geometric facade reflects the city's dynamic character while providing optimal natural lighting for gallery spaces.",
+    "location": "Chicago, Illinois",
+    "coverImage": "/images/projects/urban-cultural/cover.jpg",
+    "images": [
+      "/images/projects/urban-cultural/main-hall.jpg",
+      "/images/projects/urban-cultural/gallery.jpg",
+      "/images/projects/urban-cultural/facade.jpg"
+    ],
+    "details": {
+      "area": "25,000 sq ft",
+      "client": "City Arts Foundation",
+      "collaborators": "MEP Consultants, Structural Engineers"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Green Office Complex",
+    "category": "Commercial",
+    "year": "2023",
+    "shortDescription": "LEED Platinum certified workspace integrating biophilic design principles.",
+    "description": "A forward-thinking office complex designed for collaboration and employee wellbeing. Green roofs, natural ventilation, and integrated plant walls create a healthy work environment while minimizing the building's carbon footprint.",
+    "location": "Seattle, Washington",
+    "coverImage": "/images/projects/green-office/cover.jpg",
+    "images": [
+      "/images/projects/green-office/atrium.jpg",
+      "/images/projects/green-office/workspace.jpg",
+      "/images/projects/green-office/roof-garden.jpg"
+    ],
+    "details": {
+      "area": "120,000 sq ft",
+      "client": "Tech Innovations Inc.",
+      "collaborators": "Sustainable Systems, Green Landscape"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Mountain Retreat Lodge",
+    "category": "Hospitality",
+    "year": "2022",
+    "shortDescription": "A luxury eco-lodge harmonizing with alpine surroundings.",
+    "description": "Perched on a mountainside, this retreat blends seamlessly into its dramatic environment. Local stone and timber construction, combined with passive solar design, create a comfortable haven that respects the natural landscape.",
+    "location": "Aspen, Colorado",
+    "coverImage": "/images/projects/mountain-retreat/cover.jpg",
+    "images": [
+      "/images/projects/mountain-retreat/exterior.jpg",
+      "/images/projects/mountain-retreat/lobby.jpg",
+      "/images/projects/mountain-retreat/suite.jpg"
+    ],
+    "details": {
+      "area": "18,500 sq ft",
+      "client": "Alpine Hospitality Group",
+      "collaborators": "Interior Design Studio"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Riverside Mixed-Use Development",
+    "category": "Residential",
+    "year": "2024",
+    "shortDescription": "Waterfront apartments with retail spaces and public promenades.",
+    "description": "This mixed-use development transforms an industrial waterfront into a vibrant community. The design celebrates the site's maritime history while providing modern living spaces with stunning river views.",
+    "location": "Portland, Oregon",
+    "coverImage": "/images/projects/riverside-development/cover.jpg",
+    "images": [
+      "/images/projects/riverside-development/promenade.jpg",
+      "/images/projects/riverside-development/apartment.jpg",
+      "/images/projects/riverside-development/retail.jpg"
+    ],
+    "details": {
+      "area": "280,000 sq ft",
+      "client": "Riverfront Properties LLC",
+      "collaborators": "Marine Engineers, City Planning"
+    }
+  }
+]
