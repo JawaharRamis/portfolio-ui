@@ -118,3 +118,21 @@ npm run build
 4. **Responsive-First**: Mobile-first design with Tailwind breakpoints
 5. **Accessibility**: Include ARIA labels, keyboard navigation support, alt text
 6. **Visual Consistency**: Match spacing, colors, typography, and styles across all components
+
+## GitHub Workflow Skill
+
+Use the `github-workflow` skill for branch creation and commits:
+
+```bash
+# Invoke the skill
+/claude-code-skill: github-workflow --args '{"feature_name": "dark-mode", "commit_message": "Add dark mode toggle"}'
+```
+
+This skill:
+- Creates a new branch with pattern `feat/{feature_name}`
+- Stages all changes
+- Creates a commit with a clear message
+- Pushes the branch to remote
+
+**Branch naming**: `feat/{name}` in kebab-case (e.g., `feat/navigation-bar`)
+**Commit format**: Present tense, imperative mood, action verb first
