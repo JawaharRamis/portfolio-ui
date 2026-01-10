@@ -1,11 +1,11 @@
 <template>
-  <footer id="footer" class="bg-gray-900 text-white py-12">
+  <footer id="footer" class="py-12" :style="{ backgroundColor: 'var(--color-bg-card)' }">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <!-- Name / Brand -->
         <div class="text-center md:text-left">
-          <p class="font-serif text-lg">ARCHITECT</p>
-          <p class="text-sm font-sans text-gray-500 mt-1">Architecture & Design</p>
+          <p class="font-serif text-lg" :style="{ color: 'var(--color-text)' }">ARCHITECT</p>
+          <p class="text-sm font-sans mt-1" :style="{ color: 'var(--color-text-muted)' }">Architecture & Design</p>
         </div>
 
         <!-- Social Links -->
@@ -15,7 +15,10 @@
             :href="profile.contact.social.linkedin"
             target="_blank"
             rel="noopener"
-            class="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300"
+            class="transition-colors"
+            :style="{ color: 'var(--color-text-muted)' }"
+            @mouseenter="$event.target.style.color = 'var(--color-accent)'"
+            @mouseleave="$event.target.style.color = ''"
             aria-label="LinkedIn"
           >
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -27,7 +30,10 @@
             :href="profile.contact.social.instagram"
             target="_blank"
             rel="noopener"
-            class="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300"
+            class="transition-colors"
+            :style="{ color: 'var(--color-text-muted)' }"
+            @mouseenter="$event.target.style.color = 'var(--color-accent)'"
+            @mouseleave="$event.target.style.color = ''"
             aria-label="Instagram"
           >
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -38,7 +44,7 @@
 
         <!-- Copyright -->
         <div class="text-center md:text-right">
-          <p class="text-sm font-sans text-gray-500">
+          <p class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
             &copy; {{ new Date().getFullYear() }} {{ profile?.name || 'Architect' }}. All rights reserved.
           </p>
         </div>

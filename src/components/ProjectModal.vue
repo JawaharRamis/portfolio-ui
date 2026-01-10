@@ -10,12 +10,15 @@
         <div class="absolute inset-0 bg-black/80" @click="close"></div>
 
         <!-- Modal Content -->
-        <div class="relative bg-white w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+        <div class="relative w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col" :style="{ backgroundColor: 'var(--color-bg-card)' }">
           <!-- Close Button -->
           <button
-            class="absolute top-4 right-4 z-10 p-2 text-gray-500 hover:text-gray-900 transition-colors"
+            class="absolute top-4 right-4 z-10 p-2 transition-colors"
+            :style="{ color: 'var(--color-text-muted)' }"
             @click="close"
             aria-label="Close modal"
+            @mouseenter="$event.target.style.color = 'var(--color-text)'"
+            @mouseleave="$event.target.style.color = ''"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -24,7 +27,7 @@
 
           <div class="flex flex-col md:flex-row h-full overflow-hidden">
             <!-- Image Gallery -->
-            <div class="md:w-2/3 bg-gray-100 relative">
+            <div class="md:w-2/3 relative" :style="{ backgroundColor: 'var(--color-bg-alt)' }">
               <div class="aspect-[4/3] md:aspect-auto md:h-full">
                 <img
                   v-if="currentImage"
@@ -37,7 +40,8 @@
               <!-- Navigation Arrows -->
               <button
                 v-if="project.images?.length > 1"
-                class="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white transition-colors"
+                class="absolute left-4 top-1/2 -translate-y-1/2 p-2 transition-colors"
+                :style="{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text)' }"
                 @click="prevImage"
                 aria-label="Previous image"
               >
@@ -47,7 +51,8 @@
               </button>
               <button
                 v-if="project.images?.length > 1"
-                class="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white transition-colors"
+                class="absolute right-4 top-1/2 -translate-y-1/2 p-2 transition-colors"
+                :style="{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text)' }"
                 @click="nextImage"
                 aria-label="Next image"
               >
@@ -59,7 +64,8 @@
               <!-- Image Counter -->
               <span
                 v-if="project.images?.length > 1"
-                class="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/60 text-white text-sm"
+                class="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 text-white text-sm"
+                :style="{ backgroundColor: 'var(--color-text)' }"
               >
                 {{ currentIndex + 1 }} / {{ project.images.length }}
               </span>
@@ -69,31 +75,31 @@
             <div class="md:w-1/3 p-8 overflow-y-auto">
               <div class="space-y-6">
                 <div>
-                  <div class="flex items-center gap-3 text-sm font-sans text-gray-500 mb-2">
+                  <div class="flex items-center gap-3 text-sm font-sans mb-2" :style="{ color: 'var(--color-text-muted)' }">
                     <span v-if="project.category">{{ project.category }}</span>
                     <span v-if="project.year">{{ project.year }}</span>
                   </div>
-                  <h2 class="text-2xl font-serif text-gray-900">{{ project.title }}</h2>
-                  <p v-if="project.location" class="text-sm font-sans text-gray-500 mt-1">
+                  <h2 class="text-2xl font-serif" :style="{ color: 'var(--color-text)' }">{{ project.title }}</h2>
+                  <p v-if="project.location" class="text-sm font-sans mt-1" :style="{ color: 'var(--color-text-muted)' }">
                     {{ project.location }}
                   </p>
                 </div>
 
-                <p v-if="project.description" class="text-sm font-sans text-gray-600 leading-relaxed">
+                <p v-if="project.description" class="text-sm font-sans leading-relaxed" :style="{ color: 'var(--color-text-muted)' }">
                   {{ project.description }}
                 </p>
 
                 <!-- Project Details -->
-                <div v-if="project.details" class="space-y-2 pt-4 border-t border-gray-100">
-                  <h3 class="text-sm font-sans font-medium text-gray-900">Project Details</h3>
-                  <div v-if="project.details.area" class="text-sm font-sans text-gray-600">
-                    <span class="text-gray-500">Area:</span> {{ project.details.area }}
+                <div v-if="project.details" class="space-y-2 pt-4 border-t" :style="{ borderColor: 'var(--color-border)' }">
+                  <h3 class="text-sm font-sans font-medium" :style="{ color: 'var(--color-text)' }">Project Details</h3>
+                  <div v-if="project.details.area" class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
+                    <span :style="{ color: 'var(--color-text-light)' }">Area:</span> {{ project.details.area }}
                   </div>
-                  <div v-if="project.details.client" class="text-sm font-sans text-gray-600">
-                    <span class="text-gray-500">Client:</span> {{ project.details.client }}
+                  <div v-if="project.details.client" class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
+                    <span :style="{ color: 'var(--color-text-light)' }">Client:</span> {{ project.details.client }}
                   </div>
-                  <div v-if="project.details.collaborators" class="text-sm font-sans text-gray-600">
-                    <span class="text-gray-500">Collaborators:</span> {{ project.details.collaborators }}
+                  <div v-if="project.details.collaborators" class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
+                    <span :style="{ color: 'var(--color-text-light)' }">Collaborators:</span> {{ project.details.collaborators }}
                   </div>
                 </div>
               </div>

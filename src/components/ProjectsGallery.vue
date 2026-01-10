@@ -1,14 +1,14 @@
 <template>
-  <section id="projects" class="py-24 bg-white">
+  <section id="projects" class="py-24" :style="{ backgroundColor: 'var(--color-bg)' }">
     <div class="max-w-7xl mx-auto px-6">
       <!-- Section Header -->
       <div class="mb-20">
         <div class="flex items-end justify-between">
           <div>
-            <h2 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4">Selected Works</h2>
-            <div class="w-20 h-px bg-gray-900"></div>
+            <h2 class="text-4xl md:text-5xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">Selected Works</h2>
+            <div class="w-20 h-px" :style="{ backgroundColor: 'var(--color-accent)' }"></div>
           </div>
-          <p class="hidden md:block text-sm font-sans text-gray-400">{{ projects.length }} Projects</p>
+          <p class="hidden md:block text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">{{ projects.length }} Projects</p>
         </div>
       </div>
 
@@ -21,7 +21,7 @@
           :class="getGridClass(index)"
           @click="openProject(project)"
         >
-          <div class="project-card group relative overflow-hidden bg-gray-100">
+          <div class="project-card group relative overflow-hidden" :style="{ backgroundColor: 'var(--color-bg-card)' }">
             <!-- Image -->
             <div class="aspect-[4/3] overflow-hidden">
               <img
@@ -31,33 +31,33 @@
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"
               />
-              <div v-else class="w-full h-full flex items-center justify-center">
-                <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div v-else class="w-full h-full flex items-center justify-center" :style="{ backgroundColor: 'var(--color-bg-alt)' }">
+                <svg class="w-12 h-12" :style="{ color: 'var(--color-text-light)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
             </div>
 
             <!-- Hover Overlay -->
-            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-              <div class="text-center text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <p class="text-sm font-sans tracking-widest uppercase mb-2">View Project</p>
-                <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center" style="background-color: var(--color-bg);">
+              <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <p class="text-sm font-sans tracking-widest uppercase mb-2" :style="{ color: 'var(--color-accent)' }">View Project</p>
+                <svg class="w-8 h-8 mx-auto" :style="{ color: 'var(--color-text)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
             </div>
 
             <!-- Project Info - Always visible -->
-            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+            <div class="absolute bottom-0 left-0 right-0 p-6" :style="{ background: 'linear-gradient(to top, var(--color-bg-card) 0%, transparent 100%)' }">
               <div class="flex items-end justify-between">
                 <div>
-                  <p class="text-xs font-sans text-white/60 uppercase tracking-wider mb-1">
+                  <p class="text-xs font-sans uppercase tracking-wider mb-1" :style="{ color: 'var(--color-accent)' }">
                     {{ project.category }} {{ project.year ? `· ${project.year}` : '' }}
                   </p>
-                  <h3 class="text-xl font-serif text-white">{{ project.title }}</h3>
+                  <h3 class="text-xl font-serif" :style="{ color: 'var(--color-text)' }">{{ project.title }}</h3>
                 </div>
-                <p v-if="project.location" class="hidden sm:block text-xs font-sans text-white/60">
+                <p v-if="project.location" class="hidden sm:block text-xs font-sans" :style="{ color: 'var(--color-text-muted)' }">
                   {{ project.location }}
                 </p>
               </div>
@@ -67,8 +67,8 @@
       </div>
 
       <!-- Empty State -->
-      <div v-else class="text-center py-24 text-gray-400">
-        <p class="font-sans">Projects coming soon...</p>
+      <div v-else class="text-center py-24">
+        <p class="font-sans" :style="{ color: 'var(--color-text-light)' }">Projects coming soon...</p>
       </div>
     </div>
 
