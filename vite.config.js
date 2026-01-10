@@ -6,7 +6,14 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   plugins: [
     vue(),
-    tailwindcss()
+    tailwindcss({
+      theme: {
+        fontFamily: {
+          serif: ['"Playfair Display"', 'Georgia', 'serif'],
+          sans: ['"Inter"', 'system-ui', 'sans-serif']
+        }
+      }
+    })
   ],
   resolve: {
     alias: {

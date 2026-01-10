@@ -1,9 +1,15 @@
 <template>
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-300"
+    :class="{ 'shadow-lg': isScrolled }"
+  >
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex items-center justify-between h-16">
         <!-- Logo / Name -->
-        <a href="#hero" class="text-lg font-serif font-medium text-gray-900 hover:text-gray-600 transition-colors">
+        <a
+          href="#hero"
+          class="text-lg font-serif font-medium text-gray-900 hover:text-gray-600 transition-colors"
+        >
           ARCHITECT
         </a>
 
@@ -12,12 +18,16 @@
           <a
             v-for="section in sections"
             :key="section.id"
-            :href="'#' + section.id"
-            class="text-sm font-sans text-gray-600 hover:text-gray-900 transition-colors"
+            href="#"
+            class="text-sm font-sans text-gray-600 hover:text-gray-900 transition-colors relative"
             :class="{ 'text-gray-900 font-medium': activeSection === section.id }"
             @click.prevent="scrollToSection(section.id)"
           >
             {{ section.label }}
+            <span
+              v-if="activeSection === section.id"
+              class="absolute -bottom-1 left-0 right-0 h-px bg-gray-900"
+            ></span>
           </a>
         </div>
 
@@ -42,7 +52,7 @@
         <a
           v-for="section in sections"
           :key="section.id"
-          :href="'#' + section.id"
+          href="#"
           class="block py-2 text-sm font-sans text-gray-600 hover:text-gray-900 transition-colors"
           @click.prevent="scrollToSection(section.id); mobileMenuOpen = false"
         >
@@ -65,6 +75,7 @@ const sections = [
 
 const activeSection = ref('hero')
 const mobileMenuOpen = ref(false)
+const isScrolled = ref(false)
 
 const scrollToSection = (id) => {
   const element = document.getElementById(id)
@@ -74,6 +85,7 @@ const scrollToSection = (id) => {
 }
 
 const handleScroll = () => {
+  isScrolled.value = window.scrollY > 20
   const scrollPosition = window.scrollY + 100
 
   for (const section of sections) {
