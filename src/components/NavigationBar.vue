@@ -1,14 +1,17 @@
 <template>
   <nav
-    class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-300"
-    :class="{ 'shadow-lg': isScrolled }"
+    class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300"
+    :style="{ backgroundColor: 'var(--color-nav-bg)', borderColor: 'var(--color-border)' }"
   >
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex items-center justify-between h-16">
         <!-- Logo / Name -->
         <a
           href="#hero"
-          class="text-lg font-serif font-medium text-gray-900 hover:text-gray-600 transition-colors"
+          class="text-lg font-serif font-medium transition-colors"
+          :style="{ color: 'var(--color-text)' }"
+          @mouseenter="$event.target.style.color = 'var(--color-text-muted)'"
+          @mouseleave="$event.target.style.color = ''"
         >
           ARCHITECT
         </a>
@@ -19,41 +22,54 @@
             v-for="section in sections"
             :key="section.id"
             href="#"
-            class="text-sm font-sans text-gray-600 hover:text-gray-900 transition-colors relative"
-            :class="{ 'text-gray-900 font-medium': activeSection === section.id }"
+            class="text-sm font-sans transition-colors relative"
+            :style="{ color: activeSection === section.id ? 'var(--color-text)' : 'var(--color-text-muted)' }"
+            :class="{ 'font-medium': activeSection === section.id }"
+            @mouseenter="$event.target.style.color = 'var(--color-text)'"
+            @mouseleave="$event.target.style.color = ''"
             @click.prevent="scrollToSection(section.id)"
           >
             {{ section.label }}
             <span
               v-if="activeSection === section.id"
-              class="absolute -bottom-1 left-0 right-0 h-px bg-gray-900"
+              class="absolute -bottom-1 left-0 right-0 h-px transition-colors"
+              :style="{ backgroundColor: 'var(--color-accent)' }"
             ></span>
           </a>
+          <ThemeToggle />
         </div>
 
-        <!-- Mobile Menu Button -->
-        <button
-          class="md:hidden p-2 text-gray-600 hover:text-gray-900"
-          @click="mobileMenuOpen = !mobileMenuOpen"
-          aria-label="Toggle menu"
-        >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        <!-- Mobile Menu Button & Theme Toggle -->
+        <div class="flex items-center gap-2 md:hidden">
+          <ThemeToggle :is-small="true" />
+          <button
+            class="p-2 transition-colors"
+            :style="{ color: 'var(--color-text-muted)' }"
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            aria-label="Toggle menu"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Mobile Menu -->
       <div
         v-if="mobileMenuOpen"
-        class="md:hidden py-4 border-t border-gray-100"
+        class="md:hidden py-4 border-t"
+        :style="{ borderColor: 'var(--color-border)' }"
       >
         <a
           v-for="section in sections"
           :key="section.id"
           href="#"
-          class="block py-2 text-sm font-sans text-gray-600 hover:text-gray-900 transition-colors"
+          class="block py-2 text-sm font-sans transition-colors"
+          :style="{ color: 'var(--color-text-muted)' }"
+          @mouseenter="$event.target.style.color = 'var(--color-text)'"
+          @mouseleave="$event.target.style.color = ''"
           @click.prevent="scrollToSection(section.id); mobileMenuOpen = false"
         >
           {{ section.label }}
@@ -65,6 +81,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import ThemeToggle from './ThemeToggle.vue'
 
 const sections = [
   { id: 'hero', label: 'Home' },

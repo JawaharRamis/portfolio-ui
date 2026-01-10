@@ -1,12 +1,23 @@
 <template>
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background-color: var(--color-bg-card);">
     <!-- Background with subtle animation -->
-    <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-bg-alt) 50%, var(--color-bg) 100%);">
       <!-- Animated geometric shapes -->
       <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/3 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-white/2 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        <div
+          class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          :style="{ backgroundColor: 'var(--color-accent)', opacity: '0.08' }"
+        ></div>
+        <div
+          class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl animate-pulse"
+          :style="{ backgroundColor: 'var(--color-secondary)', opacity: '0.06' }"
+          style="animation-delay: 1s;"
+        ></div>
+        <div
+          class="absolute top-1/2 left-1/2 w-64 h-64 rounded-full blur-3xl animate-pulse"
+          :style="{ backgroundColor: 'var(--color-text)', opacity: '0.04' }"
+          style="animation-delay: 2s;"
+        ></div>
       </div>
     </div>
 
@@ -17,22 +28,22 @@
         <div class="order-2 md:order-1 space-y-8">
           <!-- Staggered fade-in animations -->
           <div class="overflow-hidden">
-            <p class="hero-text text-sm font-sans tracking-[0.3em] text-gray-400 uppercase">
+            <p class="hero-text text-sm font-sans tracking-[0.3em] uppercase" :style="{ color: 'var(--color-accent)' }">
               Architecture & Design
             </p>
           </div>
 
           <div class="overflow-hidden">
-            <h1 class="hero-text text-5xl md:text-7xl font-serif font-light text-white leading-tight">
+            <h1 class="hero-text text-5xl md:text-7xl font-serif font-light leading-tight" :style="{ color: 'var(--color-text)' }">
               <span class="block">Creating</span>
-              <span class="block text-gray-500">spaces that</span>
+              <span class="block" :style="{ color: 'var(--color-text-muted)' }">spaces that</span>
               <span class="block">inspire &</span>
-              <span class="block text-gray-500">endure</span>
+              <span class="block" :style="{ color: 'var(--color-text-muted)' }">endure</span>
             </h1>
           </div>
 
           <div class="overflow-hidden">
-            <p class="hero-text text-lg font-sans text-gray-400 max-w-md leading-relaxed">
+            <p class="hero-text text-lg font-sans max-w-md leading-relaxed" :style="{ color: 'var(--color-text-muted)' }">
               {{ profile?.bio || 'Passionate architect focused on sustainable design and innovative spatial experiences.' }}
             </p>
           </div>
@@ -41,7 +52,10 @@
           <div class="hero-text pt-4">
             <a
               href="#projects"
-              class="group inline-flex items-center gap-4 px-8 py-4 bg-white text-gray-900 font-sans text-sm font-medium tracking-wide hover:bg-gray-100 transition-all duration-500"
+              class="group inline-flex items-center gap-4 px-8 py-4 font-sans text-sm font-medium tracking-wide transition-all duration-500"
+              :style="{ backgroundColor: 'var(--color-text)', color: 'var(--color-bg)' }"
+              @mouseenter="$event.target.style.backgroundColor = 'var(--color-accent)'"
+              @mouseleave="$event.target.style.backgroundColor = ''"
               @click.prevent="scrollToProjects"
             >
               <span>View Projects</span>
@@ -56,35 +70,45 @@
         <div class="order-1 md:order-2">
           <div class="relative">
             <!-- Image reveal animation container -->
-            <div class="hero-image-reveal overflow-hidden aspect-[3/4] bg-gray-800">
+            <div class="hero-image-reveal overflow-hidden aspect-[3/4]" :style="{ backgroundColor: 'var(--color-bg-alt)' }">
               <img
                 v-if="profile?.heroImage"
                 :src="profile.heroImage"
                 :alt="profile.name"
-                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700"
+                class="w-full h-full object-cover transition-opacity duration-700"
+                :style="{ opacity: '0.9' }"
               />
               <div v-else class="w-full h-full flex items-center justify-center">
                 <div class="text-center">
-                  <div class="w-32 h-32 mx-auto border border-gray-600 rounded-full flex items-center justify-center mb-4">
-                    <svg class="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div
+                    class="w-32 h-32 mx-auto border rounded-full flex items-center justify-center mb-4"
+                    :style="{ borderColor: 'var(--color-border)' }"
+                  >
+                    <svg class="w-12 h-12" :style="{ color: 'var(--color-text-muted)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
-                  <p class="font-serif text-gray-500 italic">Profile Image</p>
+                  <p class="font-serif italic" :style="{ color: 'var(--color-text-muted)' }">Profile Image</p>
                 </div>
               </div>
             </div>
 
             <!-- Decorative frame -->
-            <div class="absolute -bottom-6 -left-6 w-full h-full border border-white/20 pointer-events-none"></div>
-            <div class="absolute -top-6 -right-6 w-full h-full border border-white/20 pointer-events-none"></div>
+            <div
+              class="absolute -bottom-6 -left-6 w-full h-full border pointer-events-none"
+              :style="{ borderColor: 'var(--color-accent)', opacity: '0.3' }"
+            ></div>
+            <div
+              class="absolute -top-6 -right-6 w-full h-full border pointer-events-none"
+              :style="{ borderColor: 'var(--color-accent)', opacity: '0.3' }"
+            ></div>
           </div>
         </div>
       </div>
 
       <!-- Scroll indicator -->
       <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6" :style="{ color: 'var(--color-text-muted)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>
