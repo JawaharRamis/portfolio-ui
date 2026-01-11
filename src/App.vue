@@ -1,27 +1,30 @@
 <template>
   <div class="min-h-screen" :style="{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }">
-    <NavigationBar />
+    <NavigationBar @open-contact="contactModalOpen = true" />
     <main>
-      <HeroSection id="hero" />
+      <HeroSection id="hero" @open-contact="contactModalOpen = true" />
       <AboutSection id="about" />
       <ProjectsGallery id="projects" />
       <ArtGallery id="artwork" />
     </main>
-    <FooterSection id="footer" />
+    <FooterSection id="footer" @open-contact="contactModalOpen = true" />
+    <ContactModal :visible="contactModalOpen" @close="contactModalOpen = false" />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import NavigationBar from './components/NavigationBar.vue'
 import HeroSection from './components/HeroSection.vue'
 import AboutSection from './components/AboutSection.vue'
 import ProjectsGallery from './components/ProjectsGallery.vue'
 import ArtGallery from './components/ArtGallery.vue'
 import FooterSection from './components/FooterSection.vue'
+import ContactModal from './components/ContactModal.vue'
 import { useTheme } from './composables/useTheme'
 
 const { setTheme } = useTheme()
+const contactModalOpen = ref(false)
 
 onMounted(() => {
   setTheme('sandstone')
