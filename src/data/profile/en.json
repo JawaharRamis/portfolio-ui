@@ -1,30 +1,40 @@
 {
-  "name": "Your Name",
+  "name": "Akshatha Kelat",
   "title": "Architecture & Design",
-  "bio": "Passionate architect with a focus on sustainable design and innovative spatial experiences. Combining functionality with aesthetic beauty to create spaces that inspire and endure.",
+  "bio": "Driven by the principles of sustainable and site-responsive architecture, my work is deeply influenced by the climatic sensitivity of pioneers like Laurie Baker, Anna Heringer, and Glenn Murcutt. Having roots in a tropical region, I prioritize regional materials and contextual design to create spaces that are not only environmentally responsible but also inherently cozy and comfortable. This portfolio is a curated compilation of my academic foundations, professional architectural practice, and personal artistic endeavors.,
   "resume": {
     "education": [
       {
         "degree": "Master of Architecture",
-        "institution": "University of Design",
-        "year": "2020"
+        "institution": "Anhalt University of Applied Sciences, Dessau, Germany",
+        "year": "2024"
       },
       {
         "degree": "Bachelor of Architecture",
-        "institution": "Institute of Fine Arts",
-        "year": "2018"
+        "institution": "College of Engineering Trivandrum, Kerala, India",
+        "year": "2019"
       }
     ],
     "experience": [
       {
-        "role": "Senior Architect",
-        "company": "Studio Modern",
-        "year": "2022 - Present"
+        "role": "Architect",
+        "company": "RT Architekten, Neuhausen a.d.F.",
+        "year": "2024 - Present"
       },
       {
         "role": "Architect",
-        "company": "Urban Design Group",
-        "year": "2020 - 2022"
+        "company": "SOHO Architects, Kerala, India",
+        "year": "2019 - 2021"
+      },
+      {
+        "role": "Intern Architect",
+        "company": "SOHO Architects, Kerala, India",
+        "year": "2019"
+      },
+      {
+        "role": "Intern Architect",
+        "company": "Stapati Architects, Kerala, India",
+        "year": "2017"
       }
     ],
     "skills": [
@@ -37,8 +47,8 @@
     ]
   },
   "contact": {
-    "email": "hello@yourname.com",
+    "email": "akshathakelat.ar@gmail.com",
     "phone": "+1 (555) 123-4567",
-    "location": "New York, USA"
+    "location": "Stuttgart, Germany"
   }
 }
