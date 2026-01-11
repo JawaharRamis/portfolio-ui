@@ -1,56 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 @import "tailwindcss";
 
-/* Theme Variables */
+/* Theme Variables - Refined Palette */
 [data-theme="sandstone"] {
-  --color-bg: #FDFCFA;
+  --color-bg: #FAF8F5;
   --color-bg-card: #FFFFFF;
-  --color-bg-alt: #F5F1EB;
-  --color-text: #2D2520;
-  --color-text-muted: #7A6E64;
-  --color-text-light: #A69C94;
-  --color-accent: #C4613A;
-  --color-accent-hover: #A84E2D;
+  --color-bg-alt: #F0EDE8;
+  --color-text: #1A1A1A;
+  --color-text-muted: #6B6560;
+  --color-text-light: #9A9490;
+  --color-accent: #B8653A;
+  --color-accent-hover: #A45630;
   --color-secondary: #6B7F5E;
-  --color-secondary-hover: #556849;
-  --color-border: #E8DFD4;
-  --color-border-light: #F0EAE2;
-  --color-nav-bg: rgba(253, 252, 250, 0.95);
-  --color-shadow: rgba(45, 37, 32, 0.1);
+  --color-border: #E8E2DC;
+  --color-border-light: #F0EDE8;
+  --color-nav-bg: rgba(250, 248, 245, 0.95);
+  --color-shadow: rgba(26, 26, 26, 0.08);
 }
 
 [data-theme="deep-ocean"] {
-  --color-bg: #0A1929;
-  --color-bg-card: #132238;
-  --color-bg-alt: #0D2137;
-  --color-text: #E8E6E3;
-  --color-text-muted: #9CA3AF;
-  --color-text-light: #6B7280;
-  --color-accent: #E86A53;
-  --color-accent-hover: #FF8A7A;
-  --color-secondary: #3D9A9A;
-  --color-secondary-hover: #4DB8B8;
-  --color-border: #1E3A52;
-  --color-border-light: #143252;
-  --color-nav-bg: rgba(10, 25, 41, 0.95);
+  --color-bg: #0A0F1A;
+  --color-bg-card: #141C2E;
+  --color-bg-alt: #0D1424;
+  --color-text: #F0EBE5;
+  --color-text-muted: #9A9390;
+  --color-text-light: #6B6560;
+  --color-accent: #E07A5F;
+  --color-accent-hover: #D06A4F;
+  --color-secondary: #4A8A8A;
+  --color-border: #1E2A45;
+  --color-border-light: #141C2E;
+  --color-nav-bg: rgba(10, 15, 26, 0.95);
   --color-shadow: rgba(0, 0, 0, 0.35);
 }
 
 [data-theme="slate-blush"] {
-  --color-bg: #F5F6F8;
+  --color-bg: #F8F9FB;
   --color-bg-card: #FFFFFF;
-  --color-bg-alt: #EAECF1;
-  --color-text: #1A1D24;
+  --color-bg-alt: #EDEFF3;
+  --color-text: #1A1D23;
   --color-text-muted: #6B7280;
-  --color-text-light: #9CA3AF;
-  --color-accent: #D4727A;
-  --color-accent-hover: #C0606A;
+  --color-text-light: #9A9EA8;
+  --color-accent: #C4727A;
+  --color-accent-hover: #B4626A;
   --color-secondary: #5C6BC0;
-  --color-secondary-hover: #4A5AB8;
-  --color-border: #E2E5EB;
+  --color-border: #E5E7EB;
   --color-border-light: #EDEFF3;
-  --color-nav-bg: rgba(245, 246, 248, 0.95);
-  --color-shadow: rgba(26, 29, 36, 0.08);
+  --color-nav-bg: rgba(248, 249, 251, 0.95);
+  --color-shadow: rgba(26, 29, 35, 0.08);
 }
 
 /* Base styles */
@@ -99,4 +96,30 @@ img {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-text-muted);
+}
+
+/* Page transition */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
