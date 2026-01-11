@@ -5,7 +5,7 @@
         <!-- Name / Brand -->
         <div class="text-center md:text-left">
           <p class="font-serif text-lg" :style="{ color: 'var(--color-text)' }">ARCHITECT</p>
-          <p class="text-sm font-sans mt-1" :style="{ color: 'var(--color-text-muted)' }">Architecture & Design</p>
+          <p class="text-sm font-sans mt-1" :style="{ color: 'var(--color-text-muted)' }">{{ $t('footer.architecture') }}</p>
         </div>
 
         <!-- Social Links -->
@@ -54,8 +54,18 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import profileData from '@/data/profile.json'
+import { ref, onMounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
 
-const profile = computed(() => profileData)
+const { t, locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const profile = ref(null)
+
+const loadProfile = async () => {
+  profile.value = await loadLocalizedContent('profile')
+}
+
+onMounted(loadProfile)
+watch(locale, loadProfile)
 </script>

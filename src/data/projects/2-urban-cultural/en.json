@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "slug": "urban-cultural",
+  "title": "Urban Cultural Center",
+  "category": "Cultural",
+  "year": "2023",
+  "shortDescription": "A community hub featuring exhibition spaces and a performance theater.",
+  "description": "The Urban Cultural Center serves as a gathering place for arts and culture. The building's geometric facade reflects the city's dynamic character while providing optimal natural lighting for gallery spaces.",
+  "location": "Chicago, Illinois",
+  "details": {
+    "area": "25,000 sq ft",
+    "client": "City Arts Foundation",
+    "collaborators": "MEP Consultants, Structural Engineers"
+  }
+}

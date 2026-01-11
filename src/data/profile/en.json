@@ -2,7 +2,6 @@
   "name": "Your Name",
   "title": "Architecture & Design",
   "bio": "Passionate architect with a focus on sustainable design and innovative spatial experiences. Combining functionality with aesthetic beauty to create spaces that inspire and endure.",
-  "heroImage": "/images/profile/hero.jpg",
   "resume": {
     "education": [
       {
@@ -40,10 +39,6 @@
   "contact": {
     "email": "hello@yourname.com",
     "phone": "+1 (555) 123-4567",
-    "location": "New York, USA",
-    "social": {
-      "linkedin": "https://linkedin.com/in/yourname",
-      "instagram": "https://instagram.com/yourname"
-    }
+    "location": "New York, USA"
   }
 }

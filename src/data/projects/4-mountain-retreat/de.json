@@ -1,0 +1,15 @@
+{
+  "id": 4,
+  "slug": "mountain-retreat",
+  "title": "Berg-Refugium Lodge",
+  "category": "Gastgewerbe",
+  "year": "2022",
+  "shortDescription": "Eine luxuriöse Öko-Lodge in Harmonie mit der alpinen Umgebung.",
+  "description": "Auf einem Berghang gelegen, fügt sich diese Lodge nahtlos in ihre dramatische Umgebung ein. Lokaler Stein und Holzbau, kombiniert mit passiver Sonnenarchitektur, schaffen eine komfortable Zuflucht, die die natürliche Landschaft respektiert.",
+  "location": "Aspen, Colorado",
+  "details": {
+    "area": "1.719 m²",
+    "client": "Alpine Hospitality Group",
+    "collaborators": "Innenarchitektur Studio"
+  }
+}

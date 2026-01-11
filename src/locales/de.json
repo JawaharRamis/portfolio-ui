@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "projects": "Projekte",
+    "artwork": "Kunstwerke"
+  },
+  "hero": {
+    "accent": "Architektur & Design",
+    "heading": "Räume schaffen, die inspirieren & bestehen"
+  },
+  "about": {
+    "title": "Über mich",
+    "skills": "Fähigkeiten",
+    "experience": "Berufserfahrung",
+    "education": "Ausbildung",
+    "downloadResume": "Lebenslauf herunterladen"
+  },
+  "projects": {
+    "title": "Ausgewählte Werke",
+    "projectsCount": "Projekte",
+    "viewProject": "Projekt ansehen",
+    "viewProjects": "Projekte ansehen",
+    "comingSoon": "Projekte kommen bald..."
+  },
+  "artwork": {
+    "title": "Kunstwerke",
+    "pieces": "Werke",
+    "comingSoon": "Kunstwerke kommen bald..."
+  },
+  "footer": {
+    "architecture": "Architektur & Design"
+  },
+  "modal": {
+    "close": "Schließen",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "projectDetails": "Projektdetails",
+    "area": "Fläche",
+    "client": "Auftraggeber",
+    "collaborators": "Mitarbeiter"
+  }
+}

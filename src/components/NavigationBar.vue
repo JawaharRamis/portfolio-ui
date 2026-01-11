@@ -37,11 +37,13 @@
             ></span>
           </a>
           <ThemeToggle />
+          <LanguageSwitcher />
         </div>
 
         <!-- Mobile Menu Button & Theme Toggle -->
         <div class="flex items-center gap-2 md:hidden">
           <ThemeToggle :is-small="true" />
+          <LanguageSwitcher />
           <button
             class="p-2 transition-colors"
             :style="{ color: 'var(--color-text-muted)' }"
@@ -80,15 +82,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ThemeToggle from './ThemeToggle.vue'
+import LanguageSwitcher from './LanguageSwitcher.vue'
 
-const sections = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'artwork', label: 'Artwork' }
-]
+const { t } = useI18n()
+
+const sections = computed(() => [
+  { id: 'hero', label: t('nav.home') },
+  { id: 'about', label: t('nav.about') },
+  { id: 'projects', label: t('nav.projects') },
+  { id: 'artwork', label: t('nav.artwork') }
+])
 
 const activeSection = ref('hero')
 const mobileMenuOpen = ref(false)

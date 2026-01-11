@@ -91,15 +91,15 @@
 
                 <!-- Project Details -->
                 <div v-if="project.details" class="space-y-2 pt-4 border-t" :style="{ borderColor: 'var(--color-border)' }">
-                  <h3 class="text-sm font-sans font-medium" :style="{ color: 'var(--color-text)' }">Project Details</h3>
+                  <h3 class="text-sm font-sans font-medium" :style="{ color: 'var(--color-text)' }">{{ $t('modal.projectDetails') }}</h3>
                   <div v-if="project.details.area" class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
-                    <span :style="{ color: 'var(--color-text-light)' }">Area:</span> {{ project.details.area }}
+                    <span :style="{ color: 'var(--color-text-light)' }">{{ $t('modal.area') }}:</span> {{ project.details.area }}
                   </div>
                   <div v-if="project.details.client" class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
-                    <span :style="{ color: 'var(--color-text-light)' }">Client:</span> {{ project.details.client }}
+                    <span :style="{ color: 'var(--color-text-light)' }">{{ $t('modal.client') }}:</span> {{ project.details.client }}
                   </div>
                   <div v-if="project.details.collaborators" class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
-                    <span :style="{ color: 'var(--color-text-light)' }">Collaborators:</span> {{ project.details.collaborators }}
+                    <span :style="{ color: 'var(--color-text-light)' }">{{ $t('modal.collaborators') }}:</span> {{ project.details.collaborators }}
                   </div>
                 </div>
               </div>
@@ -113,6 +113,9 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   project: {

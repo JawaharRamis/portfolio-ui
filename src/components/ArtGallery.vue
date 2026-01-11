@@ -5,10 +5,10 @@
       <div class="mb-20">
         <div class="flex items-end justify-between">
           <div>
-            <h2 class="text-4xl md:text-5xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">Artwork</h2>
+            <h2 class="text-4xl md:text-5xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('artwork.title') }}</h2>
             <div class="w-20 h-px" :style="{ backgroundColor: 'var(--color-accent)' }"></div>
           </div>
-          <p class="hidden md:block text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">{{ artworks.length }} Pieces</p>
+          <p class="hidden md:block text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">{{ artworks.length }} {{ $t('artwork.pieces') }}</p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
 
       <!-- Empty State -->
       <div v-else class="text-center py-24">
-        <p class="font-sans" :style="{ color: 'var(--color-text-light)' }">Artwork coming soon...</p>
+        <p class="font-sans" :style="{ color: 'var(--color-text-light)' }">{{ $t('artwork.comingSoon') }}</p>
       </div>
     </div>
 
@@ -146,13 +146,22 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import artworksData from '@/data/artwork.json'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
 
-const artworks = computed(() => artworksData)
+const { t, locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const artworks = ref([])
 const selectedArtwork = ref(null)
 const currentIndex = ref(0)
 const scrollPosition = ref(0)
+
+const loadArtworks = async () => {
+  artworks.value = await loadLocalizedContent('artwork')
+}
+
+watch(locale, loadArtworks)
 
 const getArtworkClass = (index) => {
   // Varying sizes for visual interest
@@ -197,7 +206,8 @@ watch(selectedArtwork, (val) => {
   }
 })
 
-onMounted(() => {
+onMounted(async () => {
+  await loadArtworks()
   if (selectedArtwork.value) {
     document.body.style.overflow = 'hidden'
     window.addEventListener('keydown', handleKeydown)

@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "slug": "green-office",
+  "title": "Green Office Complex",
+  "category": "Commercial",
+  "year": "2023",
+  "shortDescription": "LEED Platinum certified workspace integrating biophilic design principles.",
+  "description": "A forward-thinking office complex designed for collaboration and employee wellbeing. Green roofs, natural ventilation, and integrated plant walls create a healthy work environment while minimizing the building's carbon footprint.",
+  "location": "Seattle, Washington",
+  "details": {
+    "area": "120,000 sq ft",
+    "client": "Tech Innovations Inc.",
+    "collaborators": "Sustainable Systems, Green Landscape"
+  }
+}

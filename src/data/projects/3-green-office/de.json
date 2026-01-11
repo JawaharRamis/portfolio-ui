@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "slug": "green-office",
+  "title": "Grünes Bürogebäude",
+  "category": "Gewerbe",
+  "year": "2023",
+  "shortDescription": "LEED-Platin-zertifizierter Arbeitsraum mit biophilem Design.",
+  "description": "Ein zukunftsorientiertes Bürogebäude für Zusammenarbeit und Mitarbeiterwohlbefinden. Gründächer, natürliche Belüftung und integrierte Pflanzenwände schaffen eine gesunde Arbeitsumgebung und minimieren den Kohlenstoff-Fußabdruck des Gebäudes.",
+  "location": "Seattle, Washington",
+  "details": {
+    "area": "11.148 m²",
+    "client": "Tech Innovations Inc.",
+    "collaborators": "Nachhaltige Systeme, Grüne Landschaftsgestaltung"
+  }
+}

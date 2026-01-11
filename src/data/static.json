@@ -1,0 +1,68 @@
+{
+  "profile": {
+    "heroImage": "/images/profile/hero.jpg",
+    "social": {
+      "linkedin": "https://linkedin.com/in/yourname",
+      "instagram": "https://instagram.com/yourname"
+    }
+  },
+  "projects": {
+    "1-modernist-residence": {
+      "coverImage": "/images/projects/modernist-residence/cover.jpg",
+      "images": [
+        "/images/projects/modernist-residence/exterior-1.jpg",
+        "/images/projects/modernist-residence/interior-1.jpg",
+        "/images/projects/modernist-residence/detail-1.jpg"
+      ]
+    },
+    "2-urban-cultural": {
+      "coverImage": "/images/projects/urban-cultural/cover.jpg",
+      "images": [
+        "/images/projects/urban-cultural/main-hall.jpg",
+        "/images/projects/urban-cultural/gallery.jpg",
+        "/images/projects/urban-cultural/facade.jpg"
+      ]
+    },
+    "3-green-office": {
+      "coverImage": "/images/projects/green-office/cover.jpg",
+      "images": [
+        "/images/projects/green-office/atrium.jpg",
+        "/images/projects/green-office/workspace.jpg",
+        "/images/projects/green-office/roof-garden.jpg"
+      ]
+    },
+    "4-mountain-retreat": {
+      "coverImage": "/images/projects/mountain-retreat/cover.jpg",
+      "images": [
+        "/images/projects/mountain-retreat/exterior.jpg",
+        "/images/projects/mountain-retreat/lobby.jpg",
+        "/images/projects/mountain-retreat/suite.jpg"
+      ]
+    },
+    "5-riverside-development": {
+      "coverImage": "/images/projects/riverside-development/cover.jpg",
+      "images": [
+        "/images/projects/riverside-development/promenade.jpg",
+        "/images/projects/riverside-development/apartment.jpg",
+        "/images/projects/riverside-development/retail.jpg"
+      ]
+    }
+  },
+  "artwork": {
+    "1-urban-fragmentation": {
+      "image": "/images/artwork/urban-fragmentation.jpg"
+    },
+    "2-silence-in-blue": {
+      "image": "/images/artwork/silence-in-blue.jpg"
+    },
+    "3-structural-harmony": {
+      "image": "/images/artwork/structural-harmony.jpg"
+    },
+    "4-memory-of-place": {
+      "image": "/images/artwork/memory-of-place.jpg"
+    },
+    "5-transition": {
+      "image": "/images/artwork/transition.jpg"
+    }
+  }
+}

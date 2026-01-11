@@ -1,0 +1,15 @@
+{
+  "id": 4,
+  "slug": "mountain-retreat",
+  "title": "Mountain Retreat Lodge",
+  "category": "Hospitality",
+  "year": "2022",
+  "shortDescription": "A luxury eco-lodge harmonizing with alpine surroundings.",
+  "description": "Perched on a mountainside, this retreat blends seamlessly into its dramatic environment. Local stone and timber construction, combined with passive solar design, create a comfortable haven that respects the natural landscape.",
+  "location": "Aspen, Colorado",
+  "details": {
+    "area": "18,500 sq ft",
+    "client": "Alpine Hospitality Group",
+    "collaborators": "Interior Design Studio"
+  }
+}
