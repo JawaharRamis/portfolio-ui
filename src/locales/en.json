@@ -7,7 +7,10 @@
   },
   "hero": {
     "accent": "Architecture & Design",
-    "heading": "Creating spaces that inspire & endure"
+    "heading1": "Creating",
+    "heading2": "spaces that",
+    "heading3": "inspire &",
+    "heading4": "endure"
   },
   "about": {
     "title": "About",
@@ -31,7 +34,14 @@
   "footer": {
     "architecture": "Architecture & Design",
     "quickLinks": "Quick Links",
-    "contact": "Contact"
+    "contact": "Contact",
+    "getInTouch": "Get in Touch"
+  },
+  "navLabels": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "artwork": "Artwork"
   },
   "modal": {
     "close": "Close",

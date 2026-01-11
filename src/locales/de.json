@@ -7,7 +7,10 @@
   },
   "hero": {
     "accent": "Architektur & Design",
-    "heading": "Räume schaffen, die inspirieren & bestehen"
+    "heading1": "Räume schaffen,",
+    "heading2": "die",
+    "heading3": "inspirieren",
+    "heading4": "& bestehen"
   },
   "about": {
     "title": "Über mich",
@@ -31,7 +34,14 @@
   "footer": {
     "architecture": "Architektur & Design",
     "quickLinks": "Schnelllinks",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "getInTouch": "Kontakt aufnehmen"
+  },
+  "navLabels": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "projects": "Projekte",
+    "artwork": "Kunstwerke"
   },
   "modal": {
     "close": "Schließen",

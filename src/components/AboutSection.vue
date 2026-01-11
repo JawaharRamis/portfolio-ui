@@ -140,10 +140,18 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import profileData from '@/data/profile.json'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
 
-const { t } = useI18n()
-const profile = computed(() => profileData)
+const { t, locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const profile = ref(null)
+
+const loadProfile = async () => {
+  profile.value = await loadLocalizedContent('profile')
+}
+
+onMounted(loadProfile)
+watch(locale, loadProfile)
 </script>

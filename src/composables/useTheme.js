@@ -1,4 +1,4 @@
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 
 const themes = ['sandstone', 'deep-ocean', 'slate-blush']
 const STORAGE_KEY = 'portfolio-theme'
@@ -23,14 +23,14 @@ export function useTheme() {
 
   const toggleDropdown = ref(false)
 
-  onMounted(() => {
+  const initTheme = () => {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved && themes.includes(saved)) {
       setTheme(saved)
     } else {
       setTheme('sandstone')
     }
-  })
+  }
 
   return {
     currentTheme,
@@ -38,6 +38,7 @@ export function useTheme() {
     getTheme,
     setTheme,
     cycleTheme,
-    toggleDropdown
+    toggleDropdown,
+    initTheme
   }
 }

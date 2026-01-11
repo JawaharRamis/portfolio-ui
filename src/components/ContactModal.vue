@@ -198,8 +198,13 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
-import profileData from '@/data/profile.json'
+import { ref, watch, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
+
+const { locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const profile = ref(null)
 
 const props = defineProps({
   visible: {
@@ -210,7 +215,12 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
-const profile = computed(() => profileData)
+const loadProfile = async () => {
+  profile.value = await loadLocalizedContent('profile')
+}
+
+onMounted(loadProfile)
+watch(locale, loadProfile)
 
 const form = ref({
   name: '',

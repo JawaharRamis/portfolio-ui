@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted } from 'vue'
 
 export default {
   mounted(el, binding) {
@@ -105,8 +105,6 @@ export const useScrollReveal = (options = {}) => {
     }
     revealed.clear()
   }
-
-  onUnmounted(cleanup)
 
   return {
     initObserver,
