@@ -29,7 +29,9 @@
     "comingSoon": "Artwork coming soon..."
   },
   "footer": {
-    "architecture": "Architecture & Design"
+    "architecture": "Architecture & Design",
+    "quickLinks": "Quick Links",
+    "contact": "Contact"
   },
   "modal": {
     "close": "Close",
