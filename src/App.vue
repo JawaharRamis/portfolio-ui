@@ -5,6 +5,7 @@
       <HeroSection id="hero" @open-contact="contactModalOpen = true" />
       <AboutSection id="about" />
       <ProjectsGallery id="projects" />
+      <AcademicGallery id="academic" />
       <ArtGallery id="artwork" />
     </main>
     <FooterSection id="footer" @open-contact="contactModalOpen = true" />
@@ -18,6 +19,7 @@ import NavigationBar from './components/NavigationBar.vue'
 import HeroSection from './components/HeroSection.vue'
 import AboutSection from './components/AboutSection.vue'
 import ProjectsGallery from './components/ProjectsGallery.vue'
+import AcademicGallery from './components/AcademicGallery.vue'
 import ArtGallery from './components/ArtGallery.vue'
 import FooterSection from './components/FooterSection.vue'
 import ContactModal from './components/ContactModal.vue'

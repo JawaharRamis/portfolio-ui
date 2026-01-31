@@ -118,6 +118,7 @@ const sections = [
   { id: 'hero', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
+  { id: 'academic', label: 'Academic' },
   { id: 'artwork', label: 'Artwork' }
 ]
 

@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Sustainable Urban Housing: A Post-Pandemic Framework",
+    "category": "Thesis",
+    "year": "2024",
+    "shortDescription": "Research thesis exploring adaptive reuse strategies in metropolitan housing.",
+    "description": "This thesis examines how urban housing can be redesigned to accommodate changing work patterns and social behaviors emerging from the pandemic era. The research proposes a flexible framework for multi-use residential spaces that can adapt to hybrid work arrangements and changing household compositions.",
+    "location": "University of Architecture",
+    "coverImage": "/images/academic/thesis-housing/cover.jpg",
+    "images": [
+      "/images/academic/thesis-housing/diagram-1.jpg",
+      "/images/academic/thesis-housing/model-1.jpg",
+      "/images/academic/thesis-housing/diagram-2.jpg"
+    ],
+    "details": {
+      "supervisor": "Dr. Sarah Mitchell",
+      "program": "Master of Architecture",
+      "recognition": "Summa Cum Laude"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Vernacular Architecture of the Mediterranean",
+    "category": "Research Paper",
+    "year": "2023",
+    "shortDescription": "Study of traditional building techniques and their relevance to contemporary design.",
+    "description": "This research paper documents the traditional architectural practices of Mediterranean coastal communities and analyzes their potential application in sustainable modern design. The study focuses on passive cooling techniques, local material utilization, and the social organization of traditional settlements.",
+    "location": "International Journal of Vernacular Architecture",
+    "coverImage": "/images/academic/mediterranean/cover.jpg",
+    "images": [
+      "/images/academic/mediterranean/field-photo-1.jpg",
+      "/images/academic/mediterranean/analysis-1.jpg",
+      "/images/academic/mediterranean/diagram-1.jpg"
+    ],
+    "details": {
+      "publication": "IJVA Vol. 15, Issue 3",
+      "co-authors": "Prof. Elena Rossi",
+      "pages": "pp. 45-67"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Parametric Facade Design Workshop",
+    "category": "Studio Project",
+    "year": "2023",
+    "shortDescription": "Advanced studio exploring algorithmic approaches to building envelope design.",
+    "description": "A semester-long studio project investigating computational methods for facade optimization. The workshop combined traditional architectural principles with parametric design tools to develop responsive building envelopes that respond to solar orientation, privacy requirements, and structural considerations.",
+    "location": "School of Architecture",
+    "coverImage": "/images/academic/parametric-facade/cover.jpg",
+    "images": [
+      "/images/academic/parametric-facade/rendering-1.jpg",
+      "/images/academic/parametric-facade/diagram-1.jpg",
+      "/images/academic/parametric-facade/detail-1.jpg"
+    ],
+    "details": {
+      "instructor": "Prof. James Chen",
+      "duration": "16 weeks",
+      "tools": "Rhino, Grasshopper, Ladybug"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Adaptive Reuse of Industrial Heritage",
+    "category": "Conference Paper",
+    "year": "2022",
+    "shortDescription": "Case study analysis of factory-to-cultural-center conversions.",
+    "description": "This conference paper presents a comparative analysis of industrial heritage adaptive reuse projects across Europe and North America. The research identifies successful strategies for preserving architectural character while meeting contemporary functional and accessibility requirements.",
+    "location": "DOCOMOMO International Conference",
+    "coverImage": "/images/academic/industrial-heritage/cover.jpg",
+    "images": [
+      "/images/academic/industrial-heritage/case-study-1.jpg",
+      "/images/academic/industrial-heritage/analysis-1.jpg",
+      "/images/academic/industrial-heritage/comparison-1.jpg"
+    ],
+    "details": {
+      "conference": "DOCOMOMO 2022",
+      "location": "Lisbon, Portugal",
+      "pages": "pp. 112-128"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Community Design Build: Youth Center",
+    "category": "Studio Project",
+    "year": "2024",
+    "shortDescription": "Collaborative design-build studio creating a community youth center.",
+    "description": "A collaborative studio project involving architecture students and local youth organizations to design and partially construct a community youth center. The project emphasized participatory design processes and hands-on construction experience for students while addressing genuine community needs.",
+    "location": "Downtown Community Center",
+    "coverImage": "/images/academic/youth-center/cover.jpg",
+    "images": [
+      "/images/academic/youth-center/process-1.jpg",
+      "/images/academic/youth-center/construction-1.jpg",
+      "/images/academic/youth-center/rendering-1.jpg"
+    ],
+    "details": {
+      "client": "Youth Development Alliance",
+      "area": "2,500 sq ft",
+      "status": "Completed"
+    }
+  }
+]
