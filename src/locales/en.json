@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "artwork": "Artwork"
+  },
+  "hero": {
+    "accent": "Architecture & Design",
+    "heading1": "Creating",
+    "heading2": "spaces that",
+    "heading3": "inspire &",
+    "heading4": "endure"
+  },
+  "about": {
+    "title": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "downloadResume": "Download Resume"
+  },
+  "projects": {
+    "title": "Selected Works",
+    "projectsCount": "Projects",
+    "viewProject": "View Project",
+    "viewProjects": "View Projects",
+    "comingSoon": "Projects coming soon..."
+  },
+  "artwork": {
+    "title": "Artwork",
+    "pieces": "Pieces",
+    "comingSoon": "Artwork coming soon..."
+  },
+  "footer": {
+    "architecture": "Architecture & Design",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "getInTouch": "Get in Touch"
+  },
+  "navLabels": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "artwork": "Artwork"
+  },
+  "modal": {
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "projectDetails": "Project Details",
+    "area": "Area",
+    "client": "Client",
+    "collaborators": "Collaborators"
+  }
+}

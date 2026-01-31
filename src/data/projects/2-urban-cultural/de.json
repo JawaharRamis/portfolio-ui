@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "slug": "urban-cultural",
+  "title": "Städtisches Kulturzentrum",
+  "category": "Kultur",
+  "year": "2023",
+  "shortDescription": "Ein Gemeindezentrum mit Ausstellungsräumen und einem Theatersaal.",
+  "description": "Das Städtische Kulturzentrum dient als Treffpunkt für Kunst und Kultur. Die geometrische Fassade des Gebäudes spiegelt den dynamischen Charakter der Stadt wider und sorgt gleichzeitig für optimale natürliche Belichtung der Galerieräume.",
+  "location": "Chicago, Illinois",
+  "details": {
+    "area": "2.322 m²",
+    "client": "City Arts Foundation",
+    "collaborators": "MEP-Berater, Tragwerksplaner"
+  }
+}

@@ -6,13 +6,13 @@
         <div class="md:col-span-1">
           <p class="font-serif text-xl mb-3" :style="{ color: 'var(--color-text)' }">ARCHITECT</p>
           <p class="text-sm font-sans leading-relaxed" :style="{ color: 'var(--color-text-muted)' }">
-            Architecture & Design
+            {{ $t('footer.architecture') }}
           </p>
         </div>
 
         <!-- Quick Links -->
         <div>
-          <h4 class="font-serif text-lg mb-4" :style="{ color: 'var(--color-text)' }">Quick Links</h4>
+          <h4 class="font-serif text-lg mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('footer.quickLinks') }}</h4>
           <nav class="space-y-3">
             <a
               v-for="section in sections"
@@ -31,7 +31,7 @@
 
         <!-- Contact Info -->
         <div>
-          <h4 class="font-serif text-lg mb-4" :style="{ color: 'var(--color-text)' }">Contact</h4>
+          <h4 class="font-serif text-lg mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('footer.contact') }}</h4>
           <div class="space-y-3 text-sm font-sans">
             <a
               v-if="profile?.contact?.email"
@@ -99,7 +99,7 @@
           @mouseenter="$event.target.style.color = 'var(--color-accent)'"
           @mouseleave="$event.target.style.color = ''"
         >
-          Get in touch
+          {{ $t('footer.getInTouch') }}
         </button>
       </div>
     </div>
@@ -107,19 +107,29 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import profileData from '@/data/profile.json'
+import { ref, onMounted, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
 
 defineEmits(['open-contact'])
 
-const profile = computed(() => profileData)
+const { t, locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const profile = ref(null)
 
-const sections = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'artwork', label: 'Artwork' }
-]
+const loadProfile = async () => {
+  profile.value = await loadLocalizedContent('profile')
+}
+
+onMounted(loadProfile)
+watch(locale, loadProfile)
+
+const sections = computed(() => [
+  { id: 'hero', label: t('navLabels.home') },
+  { id: 'about', label: t('navLabels.about') },
+  { id: 'projects', label: t('navLabels.projects') },
+  { id: 'artwork', label: t('navLabels.artwork') }
+])
 
 const scrollToSection = (id) => {
   const element = document.getElementById(id)

@@ -1,0 +1,44 @@
+{
+  "name": "Ihr Name",
+  "title": "Architektur & Design",
+  "bio": "Leidenschaftlicher Architekt mit Fokus auf nachhaltiges Design und innovative Raumerlebnisse. Verbinde Funktionalität mit ästhetischer Schönheit, um Räume zu schaffen, die inspirieren und bestehen.",
+  "resume": {
+    "education": [
+      {
+        "degree": "Master of Architecture",
+        "institution": "Universität für Design",
+        "year": "2020"
+      },
+      {
+        "degree": "Bachelor of Architecture",
+        "institution": "Institut für Bildende Künste",
+        "year": "2018"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Senior Architekt",
+        "company": "Studio Modern",
+        "year": "2022 - Heute"
+      },
+      {
+        "role": "Architekt",
+        "company": "Urban Design Group",
+        "year": "2020 - 2022"
+      }
+    ],
+    "skills": [
+      "Architektonisches Design",
+      "3D-Modellierung",
+      "Nachhaltiges Design",
+      "Projektmanagement",
+      "CAD-Software",
+      "Adobe Creative Suite"
+    ]
+  },
+  "contact": {
+    "email": "hallo@ihrname.com",
+    "phone": "+1 (555) 123-4567",
+    "location": "New York, USA"
+  }
+}

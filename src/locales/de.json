@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "projects": "Projekte",
+    "artwork": "Kunstwerke"
+  },
+  "hero": {
+    "accent": "Architektur & Design",
+    "heading1": "Räume schaffen,",
+    "heading2": "die",
+    "heading3": "inspirieren",
+    "heading4": "& bestehen"
+  },
+  "about": {
+    "title": "Über mich",
+    "skills": "Fähigkeiten",
+    "experience": "Berufserfahrung",
+    "education": "Ausbildung",
+    "downloadResume": "Lebenslauf herunterladen"
+  },
+  "projects": {
+    "title": "Ausgewählte Werke",
+    "projectsCount": "Projekte",
+    "viewProject": "Projekt ansehen",
+    "viewProjects": "Projekte ansehen",
+    "comingSoon": "Projekte kommen bald..."
+  },
+  "artwork": {
+    "title": "Kunstwerke",
+    "pieces": "Werke",
+    "comingSoon": "Kunstwerke kommen bald..."
+  },
+  "footer": {
+    "architecture": "Architektur & Design",
+    "quickLinks": "Schnelllinks",
+    "contact": "Kontakt",
+    "getInTouch": "Kontakt aufnehmen"
+  },
+  "navLabels": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "projects": "Projekte",
+    "artwork": "Kunstwerke"
+  },
+  "modal": {
+    "close": "Schließen",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "projectDetails": "Projektdetails",
+    "area": "Fläche",
+    "client": "Auftraggeber",
+    "collaborators": "Mitarbeiter"
+  }
+}

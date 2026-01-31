@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "slug": "riverside-development",
+  "title": "Riverside Mixed-Use Development",
+  "category": "Residential",
+  "year": "2024",
+  "shortDescription": "Waterfront apartments with retail spaces and public promenades.",
+  "description": "This mixed-use development transforms an industrial waterfront into a vibrant community. The design celebrates the site's maritime history while providing modern living spaces with stunning river views.",
+  "location": "Portland, Oregon",
+  "details": {
+    "area": "280,000 sq ft",
+    "client": "Riverfront Properties LLC",
+    "collaborators": "Marine Engineers, City Planning"
+  }
+}

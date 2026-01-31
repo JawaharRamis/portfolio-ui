@@ -22,16 +22,16 @@
         <div class="order-2 md:order-1 space-y-8">
           <div class="overflow-hidden">
             <p class="hero-text text-sm font-sans tracking-[0.25em] uppercase" :style="{ color: 'var(--color-accent)' }">
-              Architecture & Design
+              {{ $t('hero.accent') }}
             </p>
           </div>
 
           <div class="overflow-hidden">
             <h1 class="hero-text text-5xl md:text-6xl lg:text-7xl font-serif font-light leading-tight" :style="{ color: 'var(--color-text)' }">
-              <span class="block">Creating</span>
-              <span class="block" :style="{ color: 'var(--color-text-muted)' }">spaces that</span>
-              <span class="block">inspire &</span>
-              <span class="block" :style="{ color: 'var(--color-text-muted)' }">endure</span>
+              <span class="block">{{ $t('hero.heading1') }}</span>
+              <span class="block" :style="{ color: 'var(--color-text-muted)' }">{{ $t('hero.heading2') }}</span>
+              <span class="block">{{ $t('hero.heading3') }}</span>
+              <span class="block" :style="{ color: 'var(--color-text-muted)' }">{{ $t('hero.heading4') }}</span>
             </h1>
           </div>
 
@@ -51,7 +51,7 @@
               @mouseleave="$event.target.style.backgroundColor = ''"
               @click.prevent="scrollToProjects"
             >
-              <span>View Projects</span>
+              <span>{{ $t('projects.viewProjects') }}</span>
               <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -63,7 +63,7 @@
               @mouseenter="$event.target.style.borderColor = 'var(--color-accent)'; $event.target.style.color = 'var(--color-accent)'"
               @mouseleave="$event.target.style.borderColor = ''; $event.target.style.color = ''"
             >
-              <span>Get in Touch</span>
+              <span>{{ $t('footer.getInTouch') }}</span>
               <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
@@ -125,12 +125,31 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
-import profileData from '@/data/profile.json'
+import { ref, onMounted, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
 
 defineEmits(['open-contact'])
 
-const profile = computed(() => profileData)
+const { t, locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const profile = ref(null)
+
+const loadProfile = async () => {
+  profile.value = await loadLocalizedContent('profile')
+}
+
+onMounted(() => {
+  loadProfile()
+  // Trigger animations
+  const elements = document.querySelectorAll('.hero-text')
+  elements.forEach((el, index) => {
+    el.style.animationDelay = `${index * 0.12}s`
+  })
+})
+
+// Reload when locale changes
+watch(locale, loadProfile)
 
 const scrollToProjects = () => {
   const element = document.getElementById('projects')
@@ -138,14 +157,6 @@ const scrollToProjects = () => {
     element.scrollIntoView({ behavior: 'smooth' })
   }
 }
-
-onMounted(() => {
-  // Trigger animations
-  const elements = document.querySelectorAll('.hero-text')
-  elements.forEach((el, index) => {
-    el.style.animationDelay = `${index * 0.12}s`
-  })
-})
 </script>
 
 <style scoped>

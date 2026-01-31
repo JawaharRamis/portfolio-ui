@@ -25,10 +25,10 @@ import FooterSection from './components/FooterSection.vue'
 import ContactModal from './components/ContactModal.vue'
 import { useTheme } from './composables/useTheme'
 
-const { setTheme } = useTheme()
+const { initTheme } = useTheme()
 const contactModalOpen = ref(false)
 
 onMounted(() => {
-  setTheme('sandstone')
+  initTheme()
 })
 </script>

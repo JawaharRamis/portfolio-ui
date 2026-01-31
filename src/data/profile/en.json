@@ -1,0 +1,54 @@
+{
+  "name": "Akshatha Kelat",
+  "title": "Architecture & Design",
+  "bio": "Driven by the principles of sustainable and site-responsive architecture, my work is deeply influenced by the climatic sensitivity of pioneers like Laurie Baker, Anna Heringer, and Glenn Murcutt. Having roots in a tropical region, I prioritize regional materials and contextual design to create spaces that are not only environmentally responsible but also inherently cozy and comfortable. This portfolio is a curated compilation of my academic foundations, professional architectural practice, and personal artistic endeavors.",
+  "resume": {
+    "education": [
+      {
+        "degree": "Master of Architecture",
+        "institution": "Anhalt University of Applied Sciences, Dessau, Germany",
+        "year": "2024"
+      },
+      {
+        "degree": "Bachelor of Architecture",
+        "institution": "College of Engineering Trivandrum, Kerala, India",
+        "year": "2019"
+      }
+    ],
+    "experience": [
+      {
+        "role": "Architect",
+        "company": "RT Architekten, Neuhausen a.d.F.",
+        "year": "2024 - Present"
+      },
+      {
+        "role": "Architect",
+        "company": "SOHO Architects, Kerala, India",
+        "year": "2019 - 2021"
+      },
+      {
+        "role": "Intern Architect",
+        "company": "SOHO Architects, Kerala, India",
+        "year": "2019"
+      },
+      {
+        "role": "Intern Architect",
+        "company": "Stapati Architects, Kerala, India",
+        "year": "2017"
+      }
+    ],
+    "skills": [
+      "Architectural Design",
+      "3D Modeling",
+      "Sustainable Design",
+      "Project Management",
+      "CAD Software",
+      "Adobe Creative Suite"
+    ]
+  },
+  "contact": {
+    "email": "akshathakelat.ar@gmail.com",
+    "phone": "+1 (555) 123-4567",
+    "location": "Stuttgart, Germany"
+  }
+}

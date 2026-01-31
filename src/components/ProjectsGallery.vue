@@ -5,10 +5,10 @@
       <div class="mb-20">
         <div class="flex items-end justify-between">
           <div>
-            <h2 class="text-4xl md:text-5xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">Selected Works</h2>
+            <h2 class="text-4xl md:text-5xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('projects.title') }}</h2>
             <div class="w-20 h-px" :style="{ backgroundColor: 'var(--color-accent)' }"></div>
           </div>
-          <p class="hidden md:block text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">{{ projects.length }} Projects</p>
+          <p class="hidden md:block text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">{{ projects.length }} {{ $t('projects.projectsCount') }}</p>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
             <!-- Hover Overlay -->
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center" style="background-color: var(--color-bg);">
               <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <p class="text-sm font-sans tracking-widest uppercase mb-2" :style="{ color: 'var(--color-accent)' }">View Project</p>
+                <p class="text-sm font-sans tracking-widest uppercase mb-2" :style="{ color: 'var(--color-accent)' }">{{ $t('projects.viewProject') }}</p>
                 <svg class="w-8 h-8 mx-auto" :style="{ color: 'var(--color-text)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -68,7 +68,7 @@
 
       <!-- Empty State -->
       <div v-else class="text-center py-24">
-        <p class="font-sans" :style="{ color: 'var(--color-text-light)' }">Projects coming soon...</p>
+        <p class="font-sans" :style="{ color: 'var(--color-text-light)' }">{{ $t('projects.comingSoon') }}</p>
       </div>
     </div>
 
@@ -83,17 +83,26 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import projectsData from '@/data/projects.json'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
 import ProjectModal from './ProjectModal.vue'
 
-const projects = computed(() => projectsData)
+const { t, locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const projects = ref([])
 const selectedProject = ref(null)
 const visibleProjects = ref(new Set())
 
 const openProject = (project) => {
   selectedProject.value = project
 }
+
+const loadProjects = async () => {
+  projects.value = await loadLocalizedContent('projects')
+}
+
+watch(locale, loadProjects)
 
 // Staggered grid layout classes
 const getGridClass = (index) => {
@@ -122,7 +131,8 @@ const handleScroll = () => {
   })
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await loadProjects()
   window.addEventListener('scroll', handleScroll)
   handleScroll() // Initial check
 })

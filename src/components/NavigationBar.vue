@@ -56,6 +56,7 @@
             Contact
           </button>
           <ThemeToggle />
+          <LanguageSwitcher />
         </div>
 
         <!-- Mobile Menu Button & Theme Toggle -->
@@ -71,6 +72,7 @@
             </svg>
           </button>
           <ThemeToggle :is-small="true" />
+          <LanguageSwitcher />
           <button
             class="p-2 transition-colors"
             :style="{ color: 'var(--color-text-muted)' }"
@@ -109,18 +111,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ThemeToggle from './ThemeToggle.vue'
+import LanguageSwitcher from './LanguageSwitcher.vue'
+
+const { t } = useI18n()
 
 defineEmits(['open-contact'])
 
-const sections = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'academic', label: 'Academic' },
-  { id: 'artwork', label: 'Artwork' }
-]
+const sections = computed(() => [
+  { id: 'hero', label: t('nav.home') },
+  { id: 'about', label: t('nav.about') },
+  { id: 'projects', label: t('nav.projects') },
+  { id: 'academic', label: t('nav.academic') },
+  { id: 'artwork', label: t('nav.artwork') }
+])
 
 const activeSection = ref('hero')
 const mobileMenuOpen = ref(false)
@@ -155,7 +161,7 @@ const handleScroll = () => {
   // Determine active section
   const scrollPosition = window.scrollY + 100
 
-  for (const section of sections) {
+  for (const section of sections.value) {
     const element = document.getElementById(section.id)
     if (element) {
       const { top, bottom } = element.getBoundingClientRect()

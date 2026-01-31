@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-6">
       <!-- Section Header -->
       <div class="mb-20">
-        <h2 class="text-3xl md:text-4xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">About</h2>
+        <h2 class="text-3xl md:text-4xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('about.title') }}</h2>
         <div class="w-16 h-px" :style="{ backgroundColor: 'var(--color-accent)' }"></div>
       </div>
 
@@ -56,7 +56,7 @@
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Download Resume
+              {{ $t('about.downloadResume') }}
             </a>
           </div>
         </div>
@@ -64,7 +64,7 @@
         <!-- Skills -->
         <div class="md:col-span-5">
           <div v-if="profile?.resume?.skills?.length" class="bg-white rounded-2xl p-8" :style="{ backgroundColor: 'var(--color-bg-card)', boxShadow: 'var(--color-shadow)' }">
-            <h3 class="text-xl font-serif mb-6" :style="{ color: 'var(--color-text)' }">Skills</h3>
+            <h3 class="text-xl font-serif mb-6" :style="{ color: 'var(--color-text)' }">{{ $t('about.skills') }}</h3>
             <div class="flex flex-wrap gap-2">
               <span
                 v-for="skill in profile.resume.skills"
@@ -83,7 +83,7 @@
       <div class="grid md:grid-cols-2 gap-12 mt-20 pt-12" :style="{ borderTop: '1px solid var(--color-border)' }">
         <!-- Experience -->
         <div v-if="profile?.resume?.experience?.length">
-          <h3 class="text-2xl font-serif mb-8" :style="{ color: 'var(--color-text)' }">Experience</h3>
+          <h3 class="text-2xl font-serif mb-8" :style="{ color: 'var(--color-text)' }">{{ $t('about.experience') }}</h3>
           <div class="space-y-8">
             <div
               v-for="(job, index) in profile.resume.experience"
@@ -110,7 +110,7 @@
 
         <!-- Education -->
         <div v-if="profile?.resume?.education?.length">
-          <h3 class="text-2xl font-serif mb-8" :style="{ color: 'var(--color-text)' }">Education</h3>
+          <h3 class="text-2xl font-serif mb-8" :style="{ color: 'var(--color-text)' }">{{ $t('about.education') }}</h3>
           <div class="space-y-8">
             <div
               v-for="(edu, index) in profile.resume.education"
@@ -140,8 +140,18 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import profileData from '@/data/profile.json'
+import { ref, onMounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '@/composables/useLocalizedContent'
 
-const profile = computed(() => profileData)
+const { t, locale } = useI18n()
+const { loadLocalizedContent } = useLocalizedContent()
+const profile = ref(null)
+
+const loadProfile = async () => {
+  profile.value = await loadLocalizedContent('profile')
+}
+
+onMounted(loadProfile)
+watch(locale, loadProfile)
 </script>
