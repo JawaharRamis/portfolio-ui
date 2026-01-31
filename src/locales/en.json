@@ -35,6 +35,8 @@
   "academic": {
     "title": "Academic Works",
     "worksCount": "Works",
+    "viewDetails": "View Details",
+    "description": "Selected academic projects exploring sustainable architecture and contextual design.",
     "comingSoon": "Academic works coming soon..."
   },
   "footer": {

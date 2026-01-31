@@ -1,55 +1,85 @@
 <template>
   <section id="artwork" class="py-24" :style="{ backgroundColor: 'var(--color-bg-card)' }">
-    <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-[95rem] mx-auto px-6">
       <!-- Section Header -->
-      <div class="mb-20">
-        <div class="flex items-end justify-between">
+      <div class="reveal-hidden mb-20">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <h2 class="text-4xl md:text-5xl font-serif mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('artwork.title') }}</h2>
-            <div class="w-20 h-px" :style="{ backgroundColor: 'var(--color-accent)' }"></div>
+            <div class="h-px w-16 mb-6" :style="{ backgroundColor: 'var(--color-accent)' }"></div>
+            <h2 class="text-display mb-3">{{ $t('artwork.title') }}</h2>
+            <p class="text-sm font-sans tracking-wider uppercase" :style="{ color: 'var(--color-text-light)' }">
+              {{ artworks.length }} {{ $t('artwork.pieces') }}
+            </p>
           </div>
-          <p class="hidden md:block text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">{{ artworks.length }} {{ $t('artwork.pieces') }}</p>
+          <p class="text-lg font-sans max-w-md leading-relaxed hidden md:block" :style="{ color: 'var(--color-text-muted)' }">
+            Personal artistic explorations in painting and mixed media.
+          </p>
         </div>
       </div>
 
       <!-- Horizontal Scroll Gallery -->
       <div v-if="artworks.length" class="artwork-scroller">
-        <div class="artwork-track" :style="{ transform: `translateX(${scrollPosition}px)` }">
+        <div
+          class="artwork-track"
+          :style="{ transform: `translateX(${scrollPosition}px)` }"
+        >
           <div
             v-for="(artwork, index) in artworks"
             :key="artwork.id"
-            class="artwork-item"
-            :class="getArtworkClass(index)"
+            class="artwork-item reveal-hidden"
             @click="openArtwork(artwork)"
           >
-            <div class="artwork-card group relative overflow-hidden transition-all duration-500" :style="{ backgroundColor: 'var(--color-bg)' }">
+            <div
+              class="artwork-card group relative overflow-hidden"
+              :style="{ backgroundColor: 'var(--color-bg)' }"
+            >
               <!-- Image -->
-              <div class="aspect-[3/4] overflow-hidden">
+              <div
+                class="aspect-[3/4] overflow-hidden relative"
+                :class="getAspectClass(index)"
+              >
                 <img
                   v-if="artwork.thumbnail || artwork.image"
                   :src="artwork.thumbnail || artwork.image"
                   :alt="artwork.title"
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                   loading="lazy"
                 />
-                <div v-else class="w-full h-full flex items-center justify-center" :style="{ backgroundColor: 'var(--color-bg-alt)' }">
-                  <svg class="w-12 h-12" :style="{ color: 'var(--color-text-light)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div v-else class="w-full h-full flex items-center justify-center img-placeholder">
+                  <svg class="w-10 h-10 opacity-25" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
+
+                <!-- Subtle overlay on hover -->
+                <div
+                  class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  :style="{ backgroundColor: 'var(--color-bg)' }"
+                >
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <p class="text-xs font-sans uppercase tracking-[0.15em] mb-3" :style="{ color: 'var(--color-accent)' }">
+                        View Artwork
+                      </p>
+                      <svg class="w-10 h-10 mx-auto" :style="{ color: 'var(--color-text)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <!-- Hover Reveal Info -->
-              <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6" :style="{ backgroundColor: 'var(--color-bg)' }">
-                <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 v-if="artwork.title" class="text-xl font-serif mb-2" :style="{ color: 'var(--color-text)' }">{{ artwork.title }}</h3>
-                  <p v-if="artwork.medium || artwork.year" class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
-                    {{ [artwork.medium, artwork.year].filter(Boolean).join(' · ') }}
-                  </p>
-                  <p v-if="artwork.description" class="text-sm font-sans mt-2 line-clamp-2" :style="{ color: 'var(--color-text-muted)' }">
-                    {{ artwork.description }}
-                  </p>
-                </div>
+              <!-- Info (visible on hover) -->
+              <div
+                class="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                :style="{ background: 'linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) 90%, transparent 100%)' }"
+              >
+                <h3 v-if="artwork.title" class="text-lg font-serif mb-1" :style="{ color: 'var(--color-text)' }">
+                  {{ artwork.title }}
+                </h3>
+                <p v-if="artwork.medium || artwork.year" class="text-xs font-sans uppercase tracking-wider" :style="{ color: 'var(--color-text-muted)' }">
+                  {{ [artwork.medium, artwork.year].filter(Boolean).join(' · ') }}
+                </p>
               </div>
             </div>
           </div>
@@ -57,8 +87,8 @@
       </div>
 
       <!-- Empty State -->
-      <div v-else class="text-center py-24">
-        <p class="font-sans" :style="{ color: 'var(--color-text-light)' }">{{ $t('artwork.comingSoon') }}</p>
+      <div v-else class="reveal-hidden text-center py-32">
+        <p class="font-sans" :style="{ color: 'var(--color-text-muted)' }">{{ $t('artwork.comingSoon') }}</p>
       </div>
     </div>
 
@@ -67,20 +97,18 @@
       <Transition name="modal">
         <div
           v-if="selectedArtwork"
-          class="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style="background-color: rgba(0,0,0,0.95);"
+          class="fixed inset-0 z-50 flex items-center justify-center p-0"
+          :style="{ backgroundColor: 'var(--color-modal-backdrop)' }"
           @click="close"
         >
           <!-- Close Button -->
           <button
-            class="absolute top-6 right-6 p-3 transition-colors z-10"
-            style="color: rgba(255,255,255,0.7);"
+            class="absolute top-6 right-6 p-3 transition-all duration-300 hover:scale-110 z-20"
+            :style="{ color: 'var(--color-text)' }"
             @click="close"
             aria-label="Close"
-            @mouseenter="$event.target.style.color = 'white'"
-            @mouseleave="$event.target.style.color = ''"
           >
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -88,57 +116,65 @@
           <!-- Navigation -->
           <button
             v-if="artworks.length > 1"
-            class="absolute left-4 top-1/2 -translate-y-1/2 p-3 transition-colors"
-            style="color: rgba(255,255,255,0.7);"
+            class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-4 transition-all duration-300 hover:scale-110"
+            :style="{ color: 'var(--color-text)' }"
             @click.stop="prev"
             aria-label="Previous"
-            @mouseenter="$event.target.style.color = 'white'"
-            @mouseleave="$event.target.style.color = ''"
           >
-            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             v-if="artworks.length > 1"
-            class="absolute right-4 top-1/2 -translate-y-1/2 p-3 transition-colors"
-            style="color: rgba(255,255,255,0.7);"
+            class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-4 transition-all duration-300 hover:scale-110"
+            :style="{ color: 'var(--color-text)' }"
             @click.stop="next"
             aria-label="Next"
-            @mouseenter="$event.target.style.color = 'white'"
-            @mouseleave="$event.target.style.color = ''"
           >
-            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          <!-- Main Image -->
-          <div class="max-w-5xl max-h-[75vh] flex items-center justify-center" @click.stop>
-            <img
-              :src="selectedArtwork.image"
-              :alt="selectedArtwork.title"
-              class="max-w-full max-h-[75vh] object-contain"
-            />
+          <!-- Main Image Container -->
+          <div class="w-full h-full flex items-center justify-center p-8 md:p-16">
+            <div class="relative max-w-5xl max-h-full">
+              <img
+                :src="selectedArtwork.image"
+                :alt="selectedArtwork.title"
+                class="max-w-full max-h-[75vh] object-contain"
+                @click.stop
+              />
+
+              <!-- Counter -->
+              <div
+                v-if="artworks.length > 1"
+                class="absolute -bottom-12 left-1/2 -translate-x-1/2 text-xs font-sans uppercase tracking-wider"
+                :style="{ color: 'var(--color-text-muted)' }"
+              >
+                {{ currentIndex + 1 }} / {{ artworks.length }}
+              </div>
+            </div>
           </div>
 
           <!-- Artwork Info -->
-          <div class="absolute bottom-0 left-0 right-0 p-8" style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);">
+          <div
+            class="absolute bottom-0 left-0 right-0 p-8 md:p-10"
+            :style="{ background: 'linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) 85%, transparent 100%)' }"
+          >
             <div class="max-w-3xl mx-auto text-center">
-              <h3 v-if="selectedArtwork.title" class="text-2xl font-serif text-white mb-2">{{ selectedArtwork.title }}</h3>
-              <p v-if="selectedArtwork.medium || selectedArtwork.year" class="text-sm font-sans text-white/70 tracking-wide">
+              <h3 v-if="selectedArtwork.title" class="text-2xl font-serif mb-2" :style="{ color: 'var(--color-text)' }">
+                {{ selectedArtwork.title }}
+              </h3>
+              <p v-if="selectedArtwork.medium || selectedArtwork.year" class="text-sm font-sans uppercase tracking-wider" :style="{ color: 'var(--color-text-muted)' }">
                 {{ [selectedArtwork.medium, selectedArtwork.year].filter(Boolean).join(' · ') }}
               </p>
-              <p v-if="selectedArtwork.description" class="text-sm font-sans text-white/80 mt-3 leading-relaxed">
+              <p v-if="selectedArtwork.description" class="text-base font-sans mt-4 leading-relaxed max-w-2xl mx-auto" :style="{ color: 'var(--color-text-muted)' }">
                 {{ selectedArtwork.description }}
               </p>
             </div>
           </div>
-
-          <!-- Counter -->
-          <span v-if="artworks.length > 1" class="absolute bottom-8 right-8 text-sm font-sans" style="color: rgba(255,255,255,0.5);">
-            {{ currentIndex + 1 }} / {{ artworks.length }}
-          </span>
         </div>
       </Transition>
     </Teleport>
@@ -163,10 +199,10 @@ const loadArtworks = async () => {
 
 watch(locale, loadArtworks)
 
-const getArtworkClass = (index) => {
-  // Varying sizes for visual interest
-  const sizes = ['aspect-[3/4]', 'aspect-[4/5]', 'aspect-[1/1]', 'aspect-[4/3]', 'aspect-[3/5]']
-  return sizes[index % sizes.length]
+// Varying aspect ratios for visual interest
+const getAspectClass = (index) => {
+  const aspects = ['aspect-[3/4]', 'aspect-[1/1]', 'aspect-[4/5]', 'aspect-[3/5]', 'aspect-[4/3]']
+  return aspects[index % aspects.length]
 }
 
 const openArtwork = (artwork) => {
@@ -199,9 +235,11 @@ const handleKeydown = (e) => {
 watch(selectedArtwork, (val) => {
   if (val) {
     document.body.style.overflow = 'hidden'
+    document.body.style.paddingRight = '0px'
     window.addEventListener('keydown', handleKeydown)
   } else {
     document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
     window.removeEventListener('keydown', handleKeydown)
   }
 })
@@ -210,12 +248,21 @@ onMounted(async () => {
   await loadArtworks()
   if (selectedArtwork.value) {
     document.body.style.overflow = 'hidden'
+    document.body.style.paddingRight = '0px'
     window.addEventListener('keydown', handleKeydown)
   }
+
+  // Trigger scroll reveal
+  setTimeout(() => {
+    document.querySelectorAll('.artwork-item').forEach(el => {
+      el.classList.add('reveal-visible')
+    })
+  }, 200)
 })
 
 onUnmounted(() => {
   document.body.style.overflow = ''
+  document.body.style.paddingRight = ''
   window.removeEventListener('keydown', handleKeydown)
 })
 </script>
@@ -226,11 +273,11 @@ onUnmounted(() => {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: #d1d5db transparent;
+  padding-bottom: 1rem;
 }
 
 .artwork-scroller::-webkit-scrollbar {
-  height: 6px;
+  height: 4px;
 }
 
 .artwork-scroller::-webkit-scrollbar-track {
@@ -238,62 +285,44 @@ onUnmounted(() => {
 }
 
 .artwork-scroller::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 3px;
+  background: var(--color-border);
+  border-radius: 2px;
 }
 
 .artwork-track {
   display: flex;
-  gap: 2rem;
-  padding: 1rem 0 2rem;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  width: max-content;
 }
 
 .artwork-item {
   flex-shrink: 0;
   scroll-snap-align: start;
   cursor: pointer;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.artwork-item:nth-child(1) { animation-delay: 0.1s; }
-.artwork-item:nth-child(2) { animation-delay: 0.2s; }
-.artwork-item:nth-child(3) { animation-delay: 0.3s; }
-.artwork-item:nth-child(4) { animation-delay: 0.4s; }
-.artwork-item:nth-child(5) { animation-delay: 0.5s; }
-
 .artwork-card {
-  width: 280px;
-  transition: transform 0.3s ease;
+  width: 260px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .artwork-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px var(--color-shadow-lg);
 }
 
 @media (min-width: 768px) {
   .artwork-card {
-    width: 320px;
+    width: 300px;
   }
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Modal transitions */
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.4s ease;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
+/* Responsive image sizes for different aspect ratios */
+.img-placeholder-portrait { min-height: 350px; }
+.img-placeholder-square { min-height: 300px; }
+.img-placeholder-tall { min-height: 320px; }
+.img-placeholder-narrow { min-height: 280px; }
+.img-placeholder-landscape { min-height: 220px; }
 </style>
