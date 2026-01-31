@@ -30,29 +30,6 @@ npx tailwindcss init -p
 - **Content**: JSON-based data files (no backend)
 - **Deployment**: AWS S3 (static hosting) + CloudFront (CDN)
 
-### Design Consistency Requirement
-
-**CRITICAL**: Maintain consistent visual style and theme across ALL components.
-
-The portfolio requires a cohesive, professional aesthetic that ties all sections together:
-
-- **Color Palette**: Use a unified color scheme across Hero, About, Projects, and Artwork sections. Pick neutral base colors with a single accent color used consistently throughout.
-
-- **Typography**: Consistent font hierarchy - one serif font for headings (elegant, architectural feel), one sans-serif font for body text. Same font weights and sizes should be used for equivalent elements across all components.
-
-- **Spacing & Whitespace**: Consistent padding, margins, and gaps throughout. Use Tailwind spacing scale consistently (e.g., always use `gap-6` or `gap-8` for card grids, not a mix).
-
-- **Borders & Shadows**: If using borders or shadows on cards/modals, keep them consistent. Don't mix thin borders on some sections and thick on others.
-
-- **Transitions & Animations**: Use similar transition durations and easing functions across all interactive elements. If fade-in is used on project cards, use similar fade-in on artwork cards.
-
-- **Button/CTA Styles**: Navigation buttons, "View Project" buttons, and any CTAs should have consistent hover states and visual treatment.
-
-**When creating new components**, reference existing components to match:
-- Border radius values (e.g., if `rounded-lg` is used elsewhere, don't use `rounded-2xl`)
-- Shadow intensities (e.g., if `shadow-lg` is used for project cards, use same for artwork cards)
-- Background colors (don't mix multiple gray shades unless intentional)
-
 ### Content Management Strategy
 
 All portfolio content is stored in JSON files under `src/data/`:
@@ -75,6 +52,7 @@ Both architecture projects and artwork use a similar modal pattern:
 2. Click opens a full-screen/lightbox modal
 3. Modal supports image carousel, keyboard navigation (ESC to close)
 4. Displays optional metadata (title, year, location, medium, etc.)
+
 
 ### Image Organization
 
@@ -136,3 +114,66 @@ This skill:
 
 **Branch naming**: `feat/{name}` in kebab-case (e.g., `feat/navigation-bar`)
 **Commit format**: Present tense, imperative mood, action verb first
+
+## Mandatory Workflow: Check Skills/Agents First
+
+**ENFORCED RULE**: Before responding to ANY user request, you MUST check for and use available skills/agents.
+
+### Step 1: Always Check Available Skills and Agents
+
+When receiving a user request, IMMEDIATELY scan:
+- `.claude/skills/` - Skill definitions (files matching `*/SKILL.md`)
+- `.claude/agents/` - Agent definitions (files matching `*.md`)
+
+### Step 2: Match Request to Available Skills/Agents
+
+For each user request, determine if any skill or agent matches:
+
+| If request involves... | Use this... |
+|------------------------|-------------|
+| Git branch/worktree operations | `branch-worktree` skill |
+| Creating pull requests | `create-pr` skill |
+| Frontend development (Vue/React) | `frontend-developer` agent |
+| Backend development (FastAPI/Python) | `backend-developer` agent |
+| AWS/cloud architecture | `cloud-architect` agent |
+| Terraform/Pulumi infrastructure | `terraform-engineer` agent |
+| CI/CD and deployments | `deployment-engineer` agent or `devops-engineer` agent |
+| Data pipelines/ETL | `data-engineer` agent |
+| Planning/implementation strategy | `brainstorming` skill |
+| Code reviews | `superpowers:requesting-code-review` skill |
+| Session handover | `session-brief` skill |
+| Testing/TDD | `superpowers:test-driven-development` skill |
+
+### Step 3: Use Skill/Agent - DO NOT Execute Directly
+
+Once a matching skill or agent is identified:
+- **INVOKE THE SKILL/AGENT** using the `/claude-code-skill:` or appropriate tool
+- **DO NOT** attempt to execute the task directly in the main context
+- **DO NOT** bypass the skill/agent system
+
+Example:
+```
+User: "Create a new feature branch for the login feature"
+
+WRONG: "I'll create a branch for you..." [executes git commands directly]
+
+RIGHT: [Invokes `branch-worktree` skill with feature_name: "login"]
+```
+
+### Step 4: Handoff with Context
+
+When invoking an agent:
+- Pass relevant context from the user request
+- Include any files or requirements mentioned
+- Let the skill/agent handle the full execution
+
+### Step 5: Continue in Main Context (After Skill/Agent Completes)
+
+After a skill/agent completes:
+- Read its output/summary
+- Ask follow-up questions if needed
+- Summarize results for the user
+
+---
+
+This rule is **MANDATORY** and **NON-NEGOTIABLE**:

@@ -35,6 +35,8 @@
   "academic": {
     "title": "Akademische Arbeiten",
     "worksCount": "Arbeiten",
+    "viewDetails": "Details anzeigen",
+    "description": "Ausgewählte akademische Projekte zu nachhaltiger Architektur und kontextuellem Design.",
     "comingSoon": "Akademische Arbeiten kommen bald..."
   },
   "footer": {

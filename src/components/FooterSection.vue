@@ -1,24 +1,27 @@
 <template>
-  <footer id="footer" class="py-16" :style="{ backgroundColor: 'var(--color-bg-card)' }">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid md:grid-cols-4 gap-12 mb-12">
+  <footer id="footer" class="py-20" :style="{ backgroundColor: 'var(--color-bg-card)' }">
+    <div class="max-w-[90rem] mx-auto px-6">
+      <div class="grid md:grid-cols-12 gap-12 mb-16">
         <!-- Brand -->
-        <div class="md:col-span-1">
-          <p class="font-serif text-xl mb-3" :style="{ color: 'var(--color-text)' }">ARCHITECT</p>
-          <p class="text-sm font-sans leading-relaxed" :style="{ color: 'var(--color-text-muted)' }">
-            {{ $t('footer.architecture') }}
+        <div class="md:col-span-4">
+          <p class="font-serif text-xl tracking-tight mb-4" :style="{ color: 'var(--color-text)' }">AKSHATHA KELAT</p>
+          <p class="text-sm font-sans leading-relaxed max-w-xs" :style="{ color: 'var(--color-text-muted)' }">
+            Architecture & Design
+          </p>
+          <p class="text-sm font-sans mt-6 leading-relaxed" :style="{ color: 'var(--color-text-light)' }">
+            Driven by sustainable and site-responsive architecture, prioritizing regional materials and contextual design.
           </p>
         </div>
 
         <!-- Quick Links -->
-        <div>
+        <div class="md:col-span-2">
           <h4 class="font-serif text-lg mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('footer.quickLinks') }}</h4>
           <nav class="space-y-3">
             <a
               v-for="section in sections"
               :key="section.id"
               href="#"
-              class="block text-sm font-sans transition-colors"
+              class="block text-sm font-sans transition-colors hover:translate-x-1"
               :style="{ color: 'var(--color-text-muted)' }"
               @mouseenter="$event.target.style.color = 'var(--color-accent)'"
               @mouseleave="$event.target.style.color = ''"
@@ -30,35 +33,39 @@
         </div>
 
         <!-- Contact Info -->
-        <div>
+        <div class="md:col-span-3">
           <h4 class="font-serif text-lg mb-4" :style="{ color: 'var(--color-text)' }">{{ $t('footer.contact') }}</h4>
           <div class="space-y-3 text-sm font-sans">
             <a
               v-if="profile?.contact?.email"
               :href="`mailto:${profile.contact.email}`"
-              class="block transition-colors"
+              class="block transition-colors hover:translate-x-1"
               :style="{ color: 'var(--color-text-muted)' }"
               @mouseenter="$event.target.style.color = 'var(--color-accent)'"
               @mouseleave="$event.target.style.color = ''"
             >
               {{ profile.contact.email }}
             </a>
-            <p v-if="profile?.contact?.location" class="block" :style="{ color: 'var(--color-text-muted)' }">
+            <p
+              v-if="profile?.contact?.location"
+              class="block"
+              :style="{ color: 'var(--color-text-muted)' }"
+            >
               {{ profile.contact.location }}
             </p>
           </div>
         </div>
 
         <!-- Social Links -->
-        <div>
+        <div class="md:col-span-3">
           <h4 class="font-serif text-lg mb-4" :style="{ color: 'var(--color-text)' }">Follow</h4>
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-3">
             <a
               v-if="profile?.contact?.social?.linkedin"
               :href="profile.contact.social.linkedin"
               target="_blank"
               rel="noopener"
-              class="p-2 rounded-lg transition-all duration-300"
+              class="p-3 transition-all duration-300 hover:translate-y-[-2px]"
               :style="{ backgroundColor: 'var(--color-bg-alt)', color: 'var(--color-text-muted)' }"
               @mouseenter="$event.target.style.backgroundColor = 'var(--color-accent)'; $event.target.style.color = 'white'"
               @mouseleave="$event.target.style.backgroundColor = ''; $event.target.style.color = ''"
@@ -73,7 +80,7 @@
               :href="profile.contact.social.instagram"
               target="_blank"
               rel="noopener"
-              class="p-2 rounded-lg transition-all duration-300"
+              class="p-3 transition-all duration-300 hover:translate-y-[-2px]"
               :style="{ backgroundColor: 'var(--color-bg-alt)', color: 'var(--color-text-muted)' }"
               @mouseenter="$event.target.style.backgroundColor = 'var(--color-accent)'; $event.target.style.color = 'white'"
               @mouseleave="$event.target.style.backgroundColor = ''; $event.target.style.color = ''"
@@ -89,12 +96,12 @@
 
       <!-- Bottom Bar -->
       <div class="pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4" :style="{ borderColor: 'var(--color-border)' }">
-        <p class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">
-          &copy; {{ new Date().getFullYear() }} {{ profile?.name || 'Architect' }}. All rights reserved.
+        <p class="text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">
+          © {{ new Date().getFullYear() }} {{ profile?.name || 'Akshatha Kelat' }}. All rights reserved.
         </p>
         <button
           @click="$emit('open-contact')"
-          class="text-sm font-sans transition-colors"
+          class="text-sm font-sans uppercase tracking-wider transition-colors hover:underline decoration-1 underline-offset-4"
           :style="{ color: 'var(--color-text-muted)' }"
           @mouseenter="$event.target.style.color = 'var(--color-accent)'"
           @mouseleave="$event.target.style.color = ''"
