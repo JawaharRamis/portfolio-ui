@@ -3,6 +3,7 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
+    "academic": "Academic",
     "artwork": "Artwork"
   },
   "hero": {
@@ -30,6 +31,11 @@
     "title": "Artwork",
     "pieces": "Pieces",
     "comingSoon": "Artwork coming soon..."
+  },
+  "academic": {
+    "title": "Academic Works",
+    "worksCount": "Works",
+    "comingSoon": "Academic works coming soon..."
   },
   "footer": {
     "architecture": "Architecture & Design",

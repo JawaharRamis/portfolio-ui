@@ -3,6 +3,7 @@
     "home": "Startseite",
     "about": "Über mich",
     "projects": "Projekte",
+    "academic": "Akademisch",
     "artwork": "Kunstwerke"
   },
   "hero": {
@@ -30,6 +31,11 @@
     "title": "Kunstwerke",
     "pieces": "Werke",
     "comingSoon": "Kunstwerke kommen bald..."
+  },
+  "academic": {
+    "title": "Akademische Arbeiten",
+    "worksCount": "Arbeiten",
+    "comingSoon": "Akademische Arbeiten kommen bald..."
   },
   "footer": {
     "architecture": "Architektur & Design",
