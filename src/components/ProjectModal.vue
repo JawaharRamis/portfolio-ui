@@ -3,149 +3,230 @@
     <Transition name="modal">
       <div
         v-if="visible"
-        class="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-6"
+        class="fixed inset-0 z-50 flex items-center justify-center"
         :style="{ backgroundColor: 'var(--color-modal-backdrop)' }"
         @click.self="close"
+        role="dialog"
+        :aria-label="project.title"
+        aria-modal="true"
       >
-        <!-- Modal Content -->
+        <!-- Modal panel -->
         <div
-          class="modal-content relative w-full h-full md:max-h-[90vh] md:rounded-none overflow-hidden flex flex-col md:flex-row"
+          class="modal-content relative w-full h-full md:h-auto md:max-h-[92vh] overflow-hidden flex flex-col md:flex-row"
           :style="{ backgroundColor: 'var(--color-bg-card)' }"
+          @click.stop
         >
-          <!-- Close Button -->
+          <!-- Close button -->
           <button
-            class="absolute top-4 right-4 z-20 p-3 transition-all duration-300 hover:scale-110"
-            :style="{ color: 'var(--color-text)' }"
+            class="absolute top-4 right-4 z-30 p-2.5 transition-all duration-200"
+            :style="{
+              color: 'var(--color-text-muted)',
+              backgroundColor: 'var(--color-bg-alt)',
+              border: '1px solid var(--color-border)'
+            }"
             @click="close"
-            aria-label="Close modal"
+            :aria-label="$t('modal.close')"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
-          <!-- Full Image Gallery (Mobile: Full width, Desktop: Left side) -->
-          <div class="md:w-3/5 relative bg-[var(--color-bg-alt)]">
-            <!-- Main Image -->
-            <div class="absolute inset-0 flex items-center justify-center p-4">
-              <img
-                v-if="currentImage"
-                :src="currentImage"
-                :alt="project.title"
-                class="max-w-full max-h-full object-contain"
-              />
+          <!-- Gallery panel (left / top on mobile) -->
+          <div
+            class="md:w-3/5 relative flex-shrink-0 flex flex-col"
+            :style="{ backgroundColor: 'var(--color-bg-dark)' }"
+          >
+            <!-- Main image display -->
+            <div class="flex-1 relative overflow-hidden modal-gallery-main">
+              <Transition name="img-fade" mode="out-in">
+                <img
+                  v-if="currentImage && !imgError"
+                  :key="currentIndex"
+                  :src="currentImage"
+                  :alt="`${project.title} — image ${currentIndex + 1}`"
+                  class="absolute inset-0 w-full h-full object-contain"
+                  @error="imgError = true"
+                />
+                <div
+                  v-else
+                  class="absolute inset-0 flex items-center justify-center"
+                  :style="{ color: 'var(--color-text-light)' }"
+                >
+                  <svg class="w-12 h-12 opacity-25" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </Transition>
+
+              <!-- Prev arrow -->
+              <button
+                v-if="allImages.length > 1"
+                class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2.5 transition-all duration-200 hover:scale-110"
+                :style="{
+                  backgroundColor: 'var(--color-bg)',
+                  color: 'var(--color-text)',
+                  border: '1px solid var(--color-border)'
+                }"
+                @click="prevImage"
+                :aria-label="$t('modal.previous')"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <!-- Next arrow -->
+              <button
+                v-if="allImages.length > 1"
+                class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2.5 transition-all duration-200 hover:scale-110"
+                :style="{
+                  backgroundColor: 'var(--color-bg)',
+                  color: 'var(--color-text)',
+                  border: '1px solid var(--color-border)'
+                }"
+                @click="nextImage"
+                :aria-label="$t('modal.next')"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              <!-- Image counter -->
+              <div
+                v-if="allImages.length > 1"
+                class="absolute bottom-4 right-4 z-10 px-3 py-1 text-[0.65rem] font-sans uppercase tracking-wider"
+                :style="{
+                  backgroundColor: 'var(--color-bg)',
+                  color: 'var(--color-text-muted)',
+                  border: '1px solid var(--color-border)'
+                }"
+              >
+                {{ currentIndex + 1 }} / {{ allImages.length }}
+              </div>
             </div>
 
-            <!-- Navigation Arrows -->
-            <button
-              v-if="project.images?.length > 1"
-              class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 transition-all duration-300 hover:scale-110"
-              :style="{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }"
-              @click="prevImage"
-              aria-label="Previous image"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              v-if="project.images?.length > 1"
-              class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 transition-all duration-300 hover:scale-110"
-              :style="{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }"
-              @click="nextImage"
-              aria-label="Next image"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-            <!-- Image Counter -->
+            <!-- Thumbnail strip -->
             <div
-              v-if="project.images?.length > 1"
-              class="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 text-xs font-sans uppercase tracking-wider"
-              :style="{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text-muted)' }"
-            >
-              {{ currentIndex + 1 }} / {{ project.images.length }}
-            </div>
-
-            <!-- Thumbnail Strip -->
-            <div
-              v-if="project.images?.length > 1"
-              class="absolute bottom-4 left-4 right-4 flex gap-2 overflow-x-auto py-2 px-12"
-              style="background: linear-gradient(to top, var(--color-bg) 80%, transparent);"
+              v-if="allImages.length > 1"
+              class="thumbnail-strip flex gap-1.5 p-3 overflow-x-auto flex-shrink-0"
+              :style="{ borderTop: '1px solid var(--color-border)' }"
             >
               <button
-                v-for="(img, idx) in project.images"
+                v-for="(img, idx) in allImages"
                 :key="idx"
-                class="flex-shrink-0 w-16 h-12 overflow-hidden transition-all duration-300 border-2"
-                :class="{ 'opacity-100 border-[var(--color-accent)]': idx === currentIndex, 'opacity-50 border-transparent': idx !== currentIndex }"
-                :style="{ backgroundColor: 'var(--color-bg-alt)' }"
-                @click="currentIndex = idx"
+                class="flex-shrink-0 w-14 h-10 overflow-hidden transition-all duration-200"
+                :style="{
+                  backgroundColor: 'var(--color-bg-alt)',
+                  outline: idx === currentIndex ? '2px solid var(--color-accent)' : '2px solid transparent',
+                  outlineOffset: '0px',
+                  opacity: idx === currentIndex ? '1' : '0.55'
+                }"
+                @click="goToImage(idx)"
               >
-                <img :src="img" class="w-full h-full object-cover" />
+                <img :src="img" class="w-full h-full object-cover" :alt="`Thumbnail ${idx + 1}`" />
               </button>
             </div>
           </div>
 
-          <!-- Project Details (Desktop: Right side) -->
-          <div class="md:w-2/5 p-6 md:p-10 overflow-y-auto">
-            <div class="space-y-8">
-              <!-- Header -->
-              <div>
-                <p class="text-xs font-sans uppercase tracking-[0.15em] mb-3" :style="{ color: 'var(--color-accent)' }">
-                  {{ project.category }}{{ project.year ? ` · ${project.year}` : '' }}
-                </p>
-                <h2 class="text-2xl md:text-3xl font-serif leading-tight" :style="{ color: 'var(--color-text)' }">
-                  {{ project.title }}
-                </h2>
-                <p v-if="project.location" class="text-sm font-sans mt-2" :style="{ color: 'var(--color-text-muted)' }">
-                  {{ project.location }}
-                </p>
-              </div>
+          <!-- Details panel (right / bottom on mobile) -->
+          <div
+            class="md:w-2/5 flex flex-col overflow-y-auto"
+            :style="{ borderLeft: '1px solid var(--color-border)' }"
+          >
+            <div class="p-8 md:p-10 flex-1">
+              <!-- Category & year -->
+              <p
+                class="text-[0.65rem] font-sans uppercase tracking-[0.18em] mb-4"
+                :style="{ color: 'var(--color-accent)' }"
+              >
+                {{ project.category }}{{ project.year ? ` · ${project.year}` : '' }}
+              </p>
+
+              <!-- Title -->
+              <h2
+                class="text-2xl md:text-3xl font-serif leading-tight mb-2"
+                :style="{ color: 'var(--color-text)' }"
+              >
+                {{ project.title }}
+              </h2>
+
+              <!-- Location -->
+              <p
+                v-if="project.location"
+                class="text-sm font-sans mb-8"
+                :style="{ color: 'var(--color-text-muted)' }"
+              >
+                {{ project.location }}
+              </p>
+
+              <!-- Divider -->
+              <div class="h-px mb-8" :style="{ backgroundColor: 'var(--color-border)' }"></div>
 
               <!-- Description -->
-              <div v-if="project.description" class="prose">
-                <p class="text-base font-sans leading-relaxed" :style="{ color: 'var(--color-text-muted)' }">
-                  {{ project.description }}
-                </p>
-              </div>
+              <p
+                v-if="project.description"
+                class="text-sm font-sans leading-[1.85]"
+                :style="{ color: 'var(--color-text-muted)' }"
+              >
+                {{ project.description }}
+              </p>
 
-              <!-- Project Details Grid -->
-              <div v-if="project.details" class="space-y-4 pt-6 border-t" :style="{ borderColor: 'var(--color-border)' }">
-                <h3 class="text-xs font-sans uppercase tracking-wider font-medium" :style="{ color: 'var(--color-text)' }">
-                  Project Details
-                </h3>
-                <dl class="grid grid-cols-1 gap-3">
-                  <div v-if="project.details.area" class="flex justify-between">
-                    <dt class="text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">Area</dt>
-                    <dd class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">{{ project.details.area }}</dd>
+              <!-- Short description fallback -->
+              <p
+                v-else-if="project.shortDescription"
+                class="text-sm font-sans leading-[1.85]"
+                :style="{ color: 'var(--color-text-muted)' }"
+              >
+                {{ project.shortDescription }}
+              </p>
+
+              <!-- Project details -->
+              <div
+                v-if="project.details && (project.details.area || project.details.client || project.details.collaborators)"
+                class="mt-8 pt-6 border-t"
+                :style="{ borderColor: 'var(--color-border)' }"
+              >
+                <p
+                  class="text-[0.65rem] font-sans uppercase tracking-[0.2em] mb-5"
+                  :style="{ color: 'var(--color-text-light)' }"
+                >
+                  {{ $t('modal.projectDetails') }}
+                </p>
+                <dl class="space-y-4">
+                  <div v-if="project.details.area" class="flex items-start justify-between gap-4">
+                    <dt class="text-xs font-sans uppercase tracking-wider" :style="{ color: 'var(--color-text-light)' }">{{ $t('modal.area') }}</dt>
+                    <dd class="text-xs font-sans text-right" :style="{ color: 'var(--color-text-muted)' }">{{ project.details.area }}</dd>
                   </div>
-                  <div v-if="project.details.client" class="flex justify-between">
-                    <dt class="text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">Client</dt>
-                    <dd class="text-sm font-sans" :style="{ color: 'var(--color-text-muted)' }">{{ project.details.client }}</dd>
+                  <div v-if="project.details.client" class="flex items-start justify-between gap-4">
+                    <dt class="text-xs font-sans uppercase tracking-wider" :style="{ color: 'var(--color-text-light)' }">{{ $t('modal.client') }}</dt>
+                    <dd class="text-xs font-sans text-right" :style="{ color: 'var(--color-text-muted)' }">{{ project.details.client }}</dd>
                   </div>
-                  <div v-if="project.details.collaborators" class="flex justify-between">
-                    <dt class="text-sm font-sans" :style="{ color: 'var(--color-text-light)' }">Collaborators</dt>
-                    <dd class="text-sm font-sans text-right" :style="{ color: 'var(--color-text-muted)' }">{{ project.details.collaborators }}</dd>
+                  <div v-if="project.details.collaborators" class="flex items-start justify-between gap-4">
+                    <dt class="text-xs font-sans uppercase tracking-wider" :style="{ color: 'var(--color-text-light)' }">{{ $t('modal.collaborators') }}</dt>
+                    <dd class="text-xs font-sans text-right" :style="{ color: 'var(--color-text-muted)' }">{{ project.details.collaborators }}</dd>
                   </div>
                 </dl>
               </div>
+            </div>
 
-              <!-- Actions -->
-              <div class="pt-6 flex gap-4">
-                <button
-                  v-if="project.location"
-                  class="btn btn-secondary text-xs"
-                  @click="openMaps"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  View Location
-                </button>
-              </div>
+            <!-- Footer actions -->
+            <div
+              class="px-8 md:px-10 py-5 flex items-center gap-3"
+              :style="{ borderTop: '1px solid var(--color-border)' }"
+            >
+              <button
+                v-if="project.location"
+                class="btn btn-secondary text-[0.7rem] flex items-center gap-2"
+                @click="openMaps"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Map
+              </button>
             </div>
           </div>
         </div>
@@ -171,40 +252,47 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const currentIndex = ref(0)
+const imgError = ref(false)
 
-const currentImage = computed(() => {
+// Combine coverImage + images array, deduplicated
+const allImages = computed(() => {
+  const imgs = []
+  if (props.project.coverImage) imgs.push(props.project.coverImage)
   if (props.project.images?.length) {
-    return props.project.images[currentIndex.value]
+    props.project.images.forEach(img => {
+      if (!imgs.includes(img)) imgs.push(img)
+    })
   }
-  return null
+  return imgs
 })
 
+const currentImage = computed(() => allImages.value[currentIndex.value] || null)
+
 const nextImage = () => {
-  if (props.project.images?.length) {
-    currentIndex.value = (currentIndex.value + 1) % props.project.images.length
-  }
+  imgError.value = false
+  currentIndex.value = (currentIndex.value + 1) % allImages.value.length
 }
 
 const prevImage = () => {
-  if (props.project.images?.length) {
-    currentIndex.value = (currentIndex.value - 1 + props.project.images.length) % props.project.images.length
-  }
+  imgError.value = false
+  currentIndex.value = (currentIndex.value - 1 + allImages.value.length) % allImages.value.length
 }
 
-const close = () => {
-  emit('close')
+const goToImage = (idx) => {
+  imgError.value = false
+  currentIndex.value = idx
 }
+
+const close = () => emit('close')
 
 const openMaps = () => {
   if (props.project.location) {
-    const query = encodeURIComponent(props.project.location)
-    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank')
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(props.project.location)}`, '_blank', 'noopener')
   }
 }
 
 const handleKeydown = (e) => {
   if (!props.visible) return
-
   if (e.key === 'Escape') close()
   if (e.key === 'ArrowRight') nextImage()
   if (e.key === 'ArrowLeft') prevImage()
@@ -212,13 +300,12 @@ const handleKeydown = (e) => {
 
 watch(() => props.visible, (val) => {
   currentIndex.value = 0
+  imgError.value = false
   if (val) {
     document.body.style.overflow = 'hidden'
-    document.body.style.paddingRight = '0px'
     window.addEventListener('keydown', handleKeydown)
   } else {
     document.body.style.overflow = ''
-    document.body.style.paddingRight = ''
     window.removeEventListener('keydown', handleKeydown)
   }
 })
@@ -226,44 +313,46 @@ watch(() => props.visible, (val) => {
 onMounted(() => {
   if (props.visible) {
     document.body.style.overflow = 'hidden'
-    document.body.style.paddingRight = '0px'
     window.addEventListener('keydown', handleKeydown)
   }
 })
 
 onUnmounted(() => {
   document.body.style.overflow = ''
-  document.body.style.paddingRight = ''
   window.removeEventListener('keydown', handleKeydown)
 })
 </script>
 
 <style scoped>
-/* Mobile: Full screen modal */
-@media (max-width: 767px) {
-  .modal-content {
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-  }
+.modal-content {
+  max-width: 100%;
 }
 
-/* Desktop: Contained modal */
 @media (min-width: 768px) {
   .modal-content {
-    max-height: 90vh;
-    border-radius: 0;
+    width: 90vw;
+    max-width: 1200px;
+    max-height: 92vh;
   }
 }
 
-/* Smooth image transitions */
-img {
-  transition: opacity 0.3s ease;
+.modal-gallery-main {
+  min-height: 280px;
 }
 
-/* Hide scrollbar on thumbnail strip */
+@media (min-width: 768px) {
+  .modal-gallery-main {
+    min-height: 480px;
+  }
+}
+
+.thumbnail-strip {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
 .thumbnail-strip::-webkit-scrollbar {
-  height: 4px;
+  height: 3px;
 }
 
 .thumbnail-strip::-webkit-scrollbar-track {
@@ -272,11 +361,15 @@ img {
 
 .thumbnail-strip::-webkit-scrollbar-thumb {
   background: var(--color-border);
-  border-radius: 2px;
 }
 
-/* Prose styling for description */
-.prose p + p {
-  margin-top: 1em;
+.img-fade-enter-active,
+.img-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.img-fade-enter-from,
+.img-fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -459,3 +459,43 @@ section {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px var(--color-shadow-lg);
 }
+
+/* ============================================
+   SECTION NOTATION
+   ============================================ */
+.section-header-line {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   FONT UTILITIES
+   ============================================ */
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ============================================
+   EXTENDED DISPLAY SIZES
+   ============================================ */
+.text-display-2xl {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+/* ============================================
+   TRANSITION UTILITIES
+   ============================================ */
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

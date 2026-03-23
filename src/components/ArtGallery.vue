@@ -1,83 +1,73 @@
 <template>
-  <section id="artwork" class="py-24" :style="{ backgroundColor: 'var(--color-bg-card)' }">
-    <div class="max-w-[95rem] mx-auto px-6">
+  <section id="artwork" class="py-28 lg:py-36" :style="{ backgroundColor: 'var(--color-bg)' }">
+    <div class="max-w-[90rem] mx-auto px-6 lg:px-10">
+
       <!-- Section Header -->
-      <div class="reveal-hidden mb-20">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div>
-            <div class="h-px w-16 mb-6" :style="{ backgroundColor: 'var(--color-accent)' }"></div>
-            <h2 class="text-display mb-3">{{ $t('artwork.title') }}</h2>
-            <p class="text-sm font-sans tracking-wider uppercase" :style="{ color: 'var(--color-text-light)' }">
-              {{ artworks.length }} {{ $t('artwork.pieces') }}
-            </p>
-          </div>
-          <p class="text-lg font-sans max-w-md leading-relaxed hidden md:block" :style="{ color: 'var(--color-text-muted)' }">
-            Personal artistic explorations in painting and mixed media.
+      <div class="reveal-hidden mb-16">
+        <div class="flex items-center gap-5 mb-6">
+          <span class="section-number" :style="{ color: 'var(--color-text-light)' }">05</span>
+          <div class="h-px w-10" :style="{ backgroundColor: 'var(--color-border-dark)' }"></div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <h2 class="text-display font-serif" :style="{ color: 'var(--color-text)' }">{{ $t('artwork.title') }}</h2>
+          <p
+            v-if="artworks.length"
+            class="text-[0.65rem] font-sans uppercase tracking-[0.2em]"
+            :style="{ color: 'var(--color-text-light)' }"
+          >
+            {{ artworks.length }} {{ $t('artwork.pieces') }}
           </p>
         </div>
       </div>
 
-      <!-- Horizontal Scroll Gallery -->
-      <div v-if="artworks.length" class="artwork-scroller">
+      <!-- Masonry grid using CSS columns -->
+      <div v-if="artworks.length" class="art-masonry reveal-hidden">
         <div
-          class="artwork-track"
-          :style="{ transform: `translateX(${scrollPosition}px)` }"
+          v-for="(artwork, index) in artworks"
+          :key="artwork.id || index"
+          class="art-item group cursor-pointer"
+          @click="openArtwork(index)"
+          role="button"
+          :aria-label="artwork.title || `Artwork ${index + 1}`"
+          tabindex="0"
+          @keydown.enter="openArtwork(index)"
+          @keydown.space.prevent="openArtwork(index)"
         >
+          <!-- Image wrapper -->
           <div
-            v-for="(artwork, index) in artworks"
-            :key="artwork.id"
-            class="artwork-item reveal-hidden"
-            @click="openArtwork(artwork)"
+            class="art-img-wrap relative overflow-hidden"
+            :style="{ backgroundColor: 'var(--color-bg-alt)' }"
           >
+            <img
+              v-if="(artwork.thumbnail || artwork.image) && !brokenImages.has(artwork.id || index)"
+              :src="artwork.thumbnail || artwork.image"
+              :alt="artwork.title || 'Artwork'"
+              class="w-full block transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              loading="lazy"
+              @error="markBroken(artwork.id || index)"
+            />
             <div
-              class="artwork-card group relative overflow-hidden"
-              :style="{ backgroundColor: 'var(--color-bg)' }"
+              v-else
+              class="w-full flex items-center justify-center"
+              style="min-height: 180px;"
+              :style="{ backgroundColor: 'var(--color-bg-alt)' }"
             >
-              <!-- Image -->
-              <div
-                class="aspect-[3/4] overflow-hidden relative"
-                :class="getAspectClass(index)"
-              >
-                <img
-                  v-if="artwork.thumbnail || artwork.image"
-                  :src="artwork.thumbnail || artwork.image"
-                  :alt="artwork.title"
-                  class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-                  loading="lazy"
-                />
-                <div v-else class="w-full h-full flex items-center justify-center img-placeholder">
-                  <svg class="w-10 h-10 opacity-25" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
+              <svg class="w-8 h-8 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" :style="{ color: 'var(--color-text)' }">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
 
-                <!-- Subtle overlay on hover -->
-                <div
-                  class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  :style="{ backgroundColor: 'var(--color-bg)' }"
+            <!-- Hover overlay -->
+            <div
+              class="absolute inset-0 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+              style="background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);"
+            >
+              <div class="p-4">
+                <h3 v-if="artwork.title" class="text-sm font-serif text-white leading-snug">{{ artwork.title }}</h3>
+                <p
+                  v-if="artwork.medium || artwork.year"
+                  class="text-[0.62rem] font-sans uppercase tracking-wider mt-1 text-white/65"
                 >
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                      <p class="text-xs font-sans uppercase tracking-[0.15em] mb-3" :style="{ color: 'var(--color-accent)' }">
-                        View Artwork
-                      </p>
-                      <svg class="w-10 h-10 mx-auto" :style="{ color: 'var(--color-text)' }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Info (visible on hover) -->
-              <div
-                class="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                :style="{ background: 'linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) 90%, transparent 100%)' }"
-              >
-                <h3 v-if="artwork.title" class="text-lg font-serif mb-1" :style="{ color: 'var(--color-text)' }">
-                  {{ artwork.title }}
-                </h3>
-                <p v-if="artwork.medium || artwork.year" class="text-xs font-sans uppercase tracking-wider" :style="{ color: 'var(--color-text-muted)' }">
                   {{ [artwork.medium, artwork.year].filter(Boolean).join(' · ') }}
                 </p>
               </div>
@@ -87,91 +77,98 @@
       </div>
 
       <!-- Empty State -->
-      <div v-else class="reveal-hidden text-center py-32">
-        <p class="font-sans" :style="{ color: 'var(--color-text-muted)' }">{{ $t('artwork.comingSoon') }}</p>
+      <div v-else class="reveal-hidden py-32 text-center">
+        <p class="font-sans text-sm" :style="{ color: 'var(--color-text-muted)' }">{{ $t('artwork.comingSoon') }}</p>
       </div>
     </div>
 
-    <!-- Artwork Lightbox Modal -->
+    <!-- Lightbox Modal -->
     <Teleport to="body">
       <Transition name="modal">
         <div
-          v-if="selectedArtwork"
-          class="fixed inset-0 z-50 flex items-center justify-center p-0"
+          v-if="selectedIndex !== null"
+          class="fixed inset-0 z-50 flex items-center justify-center"
           :style="{ backgroundColor: 'var(--color-modal-backdrop)' }"
-          @click="close"
+          @click="closeModal"
+          role="dialog"
+          :aria-label="selectedArtwork?.title || 'Artwork'"
+          aria-modal="true"
         >
-          <!-- Close Button -->
+          <!-- Close -->
           <button
-            class="absolute top-6 right-6 p-3 transition-all duration-300 hover:scale-110 z-20"
-            :style="{ color: 'var(--color-text)' }"
-            @click="close"
+            class="absolute top-5 right-5 z-20 p-2.5 transition-all duration-200"
+            style="color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2);"
+            @click="closeModal"
             aria-label="Close"
           >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
-          <!-- Navigation -->
+          <!-- Prev -->
           <button
             v-if="artworks.length > 1"
-            class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-4 transition-all duration-300 hover:scale-110"
-            :style="{ color: 'var(--color-text)' }"
-            @click.stop="prev"
+            class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 transition-all duration-200 hover:scale-105"
+            style="color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2);"
+            @click.stop="prevArtwork"
             aria-label="Previous"
           >
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
+
+          <!-- Next -->
           <button
             v-if="artworks.length > 1"
-            class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-4 transition-all duration-300 hover:scale-110"
-            :style="{ color: 'var(--color-text)' }"
-            @click.stop="next"
+            class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 transition-all duration-200 hover:scale-105"
+            style="color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2);"
+            @click.stop="nextArtwork"
             aria-label="Next"
           >
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          <!-- Main Image Container -->
-          <div class="w-full h-full flex items-center justify-center p-8 md:p-16">
-            <div class="relative max-w-5xl max-h-full">
+          <!-- Image -->
+          <div class="w-full h-full flex flex-col items-center justify-center px-16 py-10" @click.stop>
+            <Transition name="img-fade" mode="out-in">
               <img
+                v-if="selectedArtwork?.image && !lightboxError"
+                :key="selectedIndex"
                 :src="selectedArtwork.image"
-                :alt="selectedArtwork.title"
-                class="max-w-full max-h-[75vh] object-contain"
-                @click.stop
+                :alt="selectedArtwork.title || 'Artwork'"
+                class="max-w-full max-h-[70vh] object-contain"
+                @error="lightboxError = true"
               />
-
-              <!-- Counter -->
               <div
-                v-if="artworks.length > 1"
-                class="absolute -bottom-12 left-1/2 -translate-x-1/2 text-xs font-sans uppercase tracking-wider"
-                :style="{ color: 'var(--color-text-muted)' }"
+                v-else
+                :key="`placeholder-${selectedIndex}`"
+                class="flex items-center justify-center w-48 h-48"
+                style="border: 1px solid rgba(255,255,255,0.15);"
               >
-                {{ currentIndex + 1 }} / {{ artworks.length }}
+                <svg class="w-10 h-10 opacity-30 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
               </div>
-            </div>
-          </div>
+            </Transition>
 
-          <!-- Artwork Info -->
-          <div
-            class="absolute bottom-0 left-0 right-0 p-8 md:p-10"
-            :style="{ background: 'linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) 85%, transparent 100%)' }"
-          >
-            <div class="max-w-3xl mx-auto text-center">
-              <h3 v-if="selectedArtwork.title" class="text-2xl font-serif mb-2" :style="{ color: 'var(--color-text)' }">
-                {{ selectedArtwork.title }}
-              </h3>
-              <p v-if="selectedArtwork.medium || selectedArtwork.year" class="text-sm font-sans uppercase tracking-wider" :style="{ color: 'var(--color-text-muted)' }">
+            <!-- Caption -->
+            <div class="mt-6 text-center">
+              <h3 v-if="selectedArtwork?.title" class="text-lg font-serif text-white/90">{{ selectedArtwork.title }}</h3>
+              <p
+                v-if="selectedArtwork?.medium || selectedArtwork?.year"
+                class="text-[0.65rem] font-sans uppercase tracking-[0.18em] mt-1.5 text-white/50"
+              >
                 {{ [selectedArtwork.medium, selectedArtwork.year].filter(Boolean).join(' · ') }}
               </p>
-              <p v-if="selectedArtwork.description" class="text-base font-sans mt-4 leading-relaxed max-w-2xl mx-auto" :style="{ color: 'var(--color-text-muted)' }">
-                {{ selectedArtwork.description }}
+              <p
+                v-if="artworks.length > 1"
+                class="text-[0.65rem] font-sans mt-3 text-white/30"
+              >
+                {{ selectedIndex + 1 }} / {{ artworks.length }}
               </p>
             </div>
           </div>
@@ -182,16 +179,24 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLocalizedContent } from '@/composables/useLocalizedContent'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 const { loadLocalizedContent } = useLocalizedContent()
 const artworks = ref([])
-const selectedArtwork = ref(null)
-const currentIndex = ref(0)
-const scrollPosition = ref(0)
+const selectedIndex = ref(null)
+const lightboxError = ref(false)
+const brokenImages = ref(new Set())
+
+const markBroken = (id) => {
+  brokenImages.value = new Set([...brokenImages.value, id])
+}
+
+const selectedArtwork = computed(() =>
+  selectedIndex.value !== null ? artworks.value[selectedIndex.value] : null
+)
 
 const loadArtworks = async () => {
   artworks.value = await loadLocalizedContent('artwork')
@@ -199,130 +204,113 @@ const loadArtworks = async () => {
 
 watch(locale, loadArtworks)
 
-// Varying aspect ratios for visual interest
-const getAspectClass = (index) => {
-  const aspects = ['aspect-[3/4]', 'aspect-[1/1]', 'aspect-[4/5]', 'aspect-[3/5]', 'aspect-[4/3]']
-  return aspects[index % aspects.length]
+const openArtwork = (index) => {
+  lightboxError.value = false
+  selectedIndex.value = index
 }
 
-const openArtwork = (artwork) => {
-  currentIndex.value = artworks.value.findIndex(a => a.id === artwork.id)
-  selectedArtwork.value = artwork
+const closeModal = () => {
+  selectedIndex.value = null
 }
 
-const close = () => {
-  selectedArtwork.value = null
+const nextArtwork = () => {
+  lightboxError.value = false
+  selectedIndex.value = (selectedIndex.value + 1) % artworks.value.length
 }
 
-const next = () => {
-  currentIndex.value = (currentIndex.value + 1) % artworks.value.length
-  selectedArtwork.value = artworks.value[currentIndex.value]
-}
-
-const prev = () => {
-  currentIndex.value = (currentIndex.value - 1 + artworks.value.length) % artworks.value.length
-  selectedArtwork.value = artworks.value[currentIndex.value]
+const prevArtwork = () => {
+  lightboxError.value = false
+  selectedIndex.value = (selectedIndex.value - 1 + artworks.value.length) % artworks.value.length
 }
 
 const handleKeydown = (e) => {
-  if (!selectedArtwork.value) return
-
-  if (e.key === 'Escape') close()
-  if (e.key === 'ArrowRight') next()
-  if (e.key === 'ArrowLeft') prev()
+  if (selectedIndex.value === null) return
+  if (e.key === 'Escape') closeModal()
+  if (e.key === 'ArrowRight') nextArtwork()
+  if (e.key === 'ArrowLeft') prevArtwork()
 }
 
-watch(selectedArtwork, (val) => {
-  if (val) {
+watch(selectedIndex, (val) => {
+  if (val !== null) {
     document.body.style.overflow = 'hidden'
-    document.body.style.paddingRight = '0px'
     window.addEventListener('keydown', handleKeydown)
   } else {
     document.body.style.overflow = ''
-    document.body.style.paddingRight = ''
     window.removeEventListener('keydown', handleKeydown)
   }
 })
 
+const initReveal = () => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.05 }
+  )
+  document.querySelectorAll('#artwork .reveal-hidden').forEach(el => observer.observe(el))
+}
+
 onMounted(async () => {
   await loadArtworks()
-  if (selectedArtwork.value) {
-    document.body.style.overflow = 'hidden'
-    document.body.style.paddingRight = '0px'
-    window.addEventListener('keydown', handleKeydown)
-  }
-
-  // Trigger scroll reveal
-  setTimeout(() => {
-    document.querySelectorAll('.artwork-item').forEach(el => {
-      el.classList.add('reveal-visible')
-    })
-  }, 200)
+  setTimeout(initReveal, 100)
 })
 
 onUnmounted(() => {
   document.body.style.overflow = ''
-  document.body.style.paddingRight = ''
   window.removeEventListener('keydown', handleKeydown)
 })
 </script>
 
 <style scoped>
-.artwork-scroller {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  padding-bottom: 1rem;
+.section-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
 }
 
-.artwork-scroller::-webkit-scrollbar {
-  height: 4px;
+/* CSS multi-column masonry */
+.art-masonry {
+  column-count: 2;
+  column-gap: 1rem;
 }
 
-.artwork-scroller::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.artwork-scroller::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 2px;
-}
-
-.artwork-track {
-  display: flex;
-  gap: 1.5rem;
-  padding: 0.5rem 0;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  width: max-content;
-}
-
-.artwork-item {
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  cursor: pointer;
-}
-
-.artwork-card {
-  width: 260px;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.artwork-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px var(--color-shadow-lg);
-}
-
-@media (min-width: 768px) {
-  .artwork-card {
-    width: 300px;
+@media (min-width: 640px) {
+  .art-masonry {
+    column-count: 3;
+    column-gap: 1.25rem;
   }
 }
 
-/* Responsive image sizes for different aspect ratios */
-.img-placeholder-portrait { min-height: 350px; }
-.img-placeholder-square { min-height: 300px; }
-.img-placeholder-tall { min-height: 320px; }
-.img-placeholder-narrow { min-height: 280px; }
-.img-placeholder-landscape { min-height: 220px; }
+@media (min-width: 1024px) {
+  .art-masonry {
+    column-count: 4;
+    column-gap: 1.25rem;
+  }
+}
+
+.art-item {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.art-img-wrap {
+  overflow: hidden;
+}
+
+.img-fade-enter-active,
+.img-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.img-fade-enter-from,
+.img-fade-leave-to {
+  opacity: 0;
+}
 </style>
